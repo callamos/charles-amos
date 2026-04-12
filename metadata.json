@@ -1,0 +1,5 @@
+{
+  "name": "运营汇报生成器",
+  "description": "一个用于生成运营周报的工具，支持图表展示、数据统计、项目进度追踪，并可一键导出为PDF。",
+  "requestFramePermissions": []
+}
