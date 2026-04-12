@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Trash2, TrendingUp, Users, Eye, MousePointerClick, Printer, Activity } from "lucide-react";
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { format, subDays, startOfWeek, endOfWeek } from 'date-fns';
 
 // Mock data for charts based on user images
@@ -27,17 +27,68 @@ const wechatSourceData = [
   { name: '搜一搜', value: 5.0 },
 ];
 
+const articleComparisonData = [
+  {
+    name: '省了5分钱...',
+    fullName: '省了5分钱的扎带，赔了50万返修费！项目经理的"小件"血泪史',
+    views: 198,
+    likes: 23,
+    shares: 11,
+    favorites: 16
+  },
+  {
+    name: '电力设备...',
+    fullName: '电力设备和工业自动化里，哪些线束固定位置更适合重载型扎线带？',
+    views: 9,
+    likes: 5,
+    shares: 1,
+    favorites: 3
+  },
+  {
+    name: '选型误区...',
+    fullName: '扎线带选型误区：为何精明客户不把所有项目都押在单一型号上？',
+    views: 6,
+    likes: 5,
+    shares: 1,
+    favorites: 3
+  }
+];
+
+const newFollowersData = [
+  { name: '文章页关注', value: 6 },
+  { name: '扫描二维码', value: 3 },
+  { name: '搜一搜', value: 1 },
+];
+const COLORS = ['#5c6ac4', '#38bdf8', '#10b981'];
+
 export default function App() {
+  const today = new Date();
+  const lastWeekStart = startOfWeek(subDays(today, 7), { weekStartsOn: 1 });
+  const lastWeekEnd = endOfWeek(subDays(today, 7), { weekStartsOn: 1 });
+  const defaultDateRange = `${format(lastWeekStart, 'yyyy.MM.dd')} - ${format(lastWeekEnd, 'yyyy.MM.dd')}`;
+
   // State for editable fields
   const [reportTitle, setReportTitle] = useState('运营周报');
   const [reporterName, setReporterName] = useState('运营团队');
-  const [lastWeekSummary, setLastWeekSummary] = useState('上周微信公众号阅读总人数680人，新增关注10人（60%来自文章页）。头条文章《省了5分钱的扎带...》表现优异，获198次阅读及23次点赞。官网方面，总浏览量(PV)380次，独立访客(UV)234人，新访客占比高达94.2%，但跳出率偏高(84%)，需进一步优化。');
-  const [thisWeekPlan, setThisWeekPlan] = useState('1. 内容运营：针对高互动文章《省了5分钱的扎带...》的话题，策划系列衍生图文或短视频。\n2. 官网优化：针对84%的高跳出率，本周重点优化首页（浏览量最高）的视觉引导和首屏加载速度。\n3. 转化提升：官网新访客占比94.2%，计划在首页和“联系我们”页面增加悬浮留资表单，提升线索转化率。\n4. 渠道拓展：朋友圈流量占比达50.4%，本周尝试策划一次朋友圈转发抽奖活动，进一步裂变。');
+  const [reportDate, setReportDate] = useState(defaultDateRange);
+  const [section1Title, setSection1Title] = useState('一、上周核心数据概览');
+  const [section2Title, setSection2Title] = useState('二、上周工作总结');
+  const [section3Title, setSection3Title] = useState('三、其它项目进度');
+  const [section4Title, setSection4Title] = useState('四、本周工作安排');
+  const [section5Title, setSection5Title] = useState('五、本周公众号推文规划');
+  const [lastWeekSummary, setLastWeekSummary] = useState('上周微信公众号阅读总人数680人，新增关注10人（60%来自文章页）。头条文章《省了5分钱的扎带...》表现优异，获198次阅读及23次点赞。官网方面，总浏览量(PV)380次，独立访客(UV)234人，新访客占比高达94.2%，但跳出率偏高(84%)。另外，上周官网留言2则，通过扫描官网留的企业微信直接联系的有3人，且都是贸易商。');
+  const [thisWeekPlan, setThisWeekPlan] = useState('1. 内容运营：针对高互动文章《省了5分钱的扎带...》的话题，策划系列衍生图文或短视频。\n2. 官网优化：针对84%的高跳出率，本周重点优化首页（浏览量最高）的视觉引导和首屏加载速度。\n3. 转化提升：官网新访客占比94.2%，计划在首页和“联系我们”页面增加悬浮留资表单，提升线索转化率。\n4. 渠道拓展：朋友圈流量占比达50.4%，本周尝试策划一次朋友圈转发抽奖活动，进一步裂变。\n5. 客户跟进：重点跟进通过官网企微联系的3位贸易商客户，了解具体采购需求并建立长期合作关系。');
   
   const [projects, setProjects] = useState([
     { id: 1, name: '官网首页跳出率优化', status: '进行中', progress: '30%', notes: '正在重新设计首屏Banner和行动号召(CTA)按钮' },
     { id: 2, name: '公众号菜单栏更新', status: '已完成', progress: '100%', notes: '已增加“联系我们”和“产品手册”入口' },
     { id: 3, name: '客户案例图文排版', status: '规划中', progress: '0%', notes: '等待销售部提供素材' },
+  ]);
+
+  const [articles, setArticles] = useState([
+    { id: 1, title: '为什么项目型客户，最后比的不是单价，而是补货能力？', target: '项目采购、工程经理', product: '全品类', viewpoint: '项目里最贵的不是单价，而是临时缺货和补货慢' },
+    { id: 2, title: '上海超过2000平现货仓，对项目客户到底意味着什么？', target: '华东及周边项目客户', product: '全品类', viewpoint: '仓储价值不是仓库大，而是项目推进更稳' },
+    { id: 3, title: '很多供应商只会报价，我们更愿意先帮客户判断工况', target: '工程师、采购', product: '全品类', viewpoint: '你们的差异化不是卖货，而是帮客户减少选错风险' }
   ]);
 
   const handleExportPDF = () => {
@@ -55,11 +106,6 @@ export default function App() {
   const removeProject = (id: number) => {
     setProjects(projects.filter(p => p.id !== id));
   };
-
-  const today = new Date();
-  const lastWeekStart = startOfWeek(subDays(today, 7), { weekStartsOn: 1 });
-  const lastWeekEnd = endOfWeek(subDays(today, 7), { weekStartsOn: 1 });
-  const dateRangeStr = `${format(lastWeekStart, 'yyyy.MM.dd')} - ${format(lastWeekEnd, 'yyyy.MM.dd')}`;
 
   return (
     <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans print:bg-white print:p-0">
@@ -97,15 +143,26 @@ export default function App() {
                 />
               </div>
               <span>|</span>
-              <span>周期: {dateRangeStr}</span>
+              <div className="flex items-center gap-2">
+                <span>周期:</span>
+                <Input 
+                  value={reportDate}
+                  onChange={(e) => setReportDate(e.target.value)}
+                  className="w-48 border-none shadow-none focus-visible:ring-0 px-0 h-auto text-slate-700 font-medium print:p-0"
+                />
+              </div>
             </div>
           </div>
 
           {/* Section 1: Last Week Data */}
           <section className="space-y-6 print:space-y-4">
             <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact"></span>
-              一、上周核心数据概览
+              <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact shrink-0"></span>
+              <Input 
+                value={section1Title}
+                onChange={(e) => setSection1Title(e.target.value)}
+                className="text-xl font-bold border-none shadow-none focus-visible:ring-1 focus-visible:ring-slate-200 px-0 h-auto bg-transparent print:p-0 w-full"
+              />
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 print:grid-cols-4">
@@ -201,14 +258,83 @@ export default function App() {
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
+              
+              <Card className="print:shadow-none print:border-slate-200 md:col-span-2 print:col-span-2">
+                <CardHeader>
+                  <CardTitle className="text-base">公众号文章数据对比</CardTitle>
+                </CardHeader>
+                <CardContent className="h-[300px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={articleComparisonData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} />
+                      <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} />
+                      <Tooltip 
+                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                        labelFormatter={(label, payload) => {
+                          if (payload && payload.length > 0) {
+                            return payload[0].payload.fullName;
+                          }
+                          return label;
+                        }}
+                      />
+                      <Legend wrapperStyle={{ fontSize: '12px' }} />
+                      <Bar dataKey="views" name="阅读" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="likes" name="点赞" fill="#10b981" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="shares" name="分享" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="favorites" name="收藏" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card className="print:shadow-none print:border-slate-200 md:col-span-2 print:col-span-2">
+                <CardHeader>
+                  <CardTitle className="text-base">公众号新增关注渠道构成</CardTitle>
+                </CardHeader>
+                <CardContent className="h-[300px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={newFollowersData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={80}
+                        outerRadius={110}
+                        paddingAngle={2}
+                        dataKey="value"
+                      >
+                        {newFollowersData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                        contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                        formatter={(value: number) => [`${value}人`, '新增关注']}
+                      />
+                      <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: '12px' }} />
+                      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" className="fill-slate-900 font-bold text-lg">
+                        新增关注
+                      </text>
+                      <text x="50%" y="55%" textAnchor="middle" dominantBaseline="middle" className="fill-slate-500 text-sm">
+                        10人
+                      </text>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
             </div>
           </section>
 
           {/* Section 2: Last Week Summary */}
           <section className="space-y-4 print:break-inside-avoid">
             <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact"></span>
-              二、上周工作总结
+              <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact shrink-0"></span>
+              <Input 
+                value={section2Title}
+                onChange={(e) => setSection2Title(e.target.value)}
+                className="text-xl font-bold border-none shadow-none focus-visible:ring-1 focus-visible:ring-slate-200 px-0 h-auto bg-transparent print:p-0 w-full"
+              />
             </h2>
             <Textarea 
               value={lastWeekSummary}
@@ -221,11 +347,15 @@ export default function App() {
           {/* Section 3: Project Progress */}
           <section className="space-y-4 print:break-inside-avoid">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact"></span>
-                三、其它项目进度
+              <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 w-full">
+                <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact shrink-0"></span>
+                <Input 
+                  value={section3Title}
+                  onChange={(e) => setSection3Title(e.target.value)}
+                  className="text-xl font-bold border-none shadow-none focus-visible:ring-1 focus-visible:ring-slate-200 px-0 h-auto bg-transparent print:p-0 w-full"
+                />
               </h2>
-              <Button variant="outline" size="sm" onClick={addProject} className="print:hidden">
+              <Button variant="outline" size="sm" onClick={addProject} className="print:hidden shrink-0 ml-4">
                 <Plus className="w-4 h-4 mr-1" /> 添加项目
               </Button>
             </div>
@@ -298,8 +428,12 @@ export default function App() {
           {/* Section 4: This Week Plan */}
           <section className="space-y-4 print:break-inside-avoid">
             <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact"></span>
-              四、本周工作安排
+              <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact shrink-0"></span>
+              <Input 
+                value={section4Title}
+                onChange={(e) => setSection4Title(e.target.value)}
+                className="text-xl font-bold border-none shadow-none focus-visible:ring-1 focus-visible:ring-slate-200 px-0 h-auto bg-transparent print:p-0 w-full"
+              />
             </h2>
             <Textarea 
               value={thisWeekPlan}
@@ -307,6 +441,87 @@ export default function App() {
               className="min-h-[150px] text-base leading-relaxed resize-none border-transparent hover:border-slate-200 focus-visible:ring-1 focus-visible:border-slate-200 bg-slate-50/50 hover:bg-white focus:bg-white transition-colors print:p-0 print:bg-transparent print:min-h-0"
               placeholder="请输入本周工作安排..."
             />
+          </section>
+
+          {/* Section 5: Articles Plan */}
+          <section className="space-y-4 print:break-inside-avoid">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 w-full">
+                <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block print:bg-blue-600 print:color-exact shrink-0"></span>
+                <Input 
+                  value={section5Title}
+                  onChange={(e) => setSection5Title(e.target.value)}
+                  className="text-xl font-bold border-none shadow-none focus-visible:ring-1 focus-visible:ring-slate-200 px-0 h-auto bg-transparent print:p-0 w-full"
+                />
+              </h2>
+              <Button variant="outline" size="sm" onClick={() => setArticles([...articles, { id: Date.now(), title: '', target: '', product: '', viewpoint: '' }])} className="print:hidden shrink-0 ml-4">
+                <Plus className="w-4 h-4 mr-1" /> 添加文章
+              </Button>
+            </div>
+            
+            <div className="border rounded-lg overflow-hidden print:border-slate-300">
+              <Table>
+                <TableHeader className="bg-slate-50 print:bg-slate-100">
+                  <TableRow>
+                    <TableHead className="w-[30%]">标题</TableHead>
+                    <TableHead className="w-[20%]">目标客户</TableHead>
+                    <TableHead className="w-[15%]">主推产品</TableHead>
+                    <TableHead className="w-[30%]">核心观点</TableHead>
+                    <TableHead className="w-[5%] print:hidden"></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {articles.map((article) => (
+                    <TableRow key={article.id}>
+                      <TableCell className="p-2">
+                        <Input 
+                          value={article.title} 
+                          onChange={(e) => setArticles(articles.map(a => a.id === article.id ? { ...a, title: e.target.value } : a))}
+                          className="border-transparent hover:border-slate-200 focus-visible:ring-1 h-8 bg-transparent print:p-0"
+                          placeholder="文章标题"
+                        />
+                      </TableCell>
+                      <TableCell className="p-2">
+                        <Input 
+                          value={article.target} 
+                          onChange={(e) => setArticles(articles.map(a => a.id === article.id ? { ...a, target: e.target.value } : a))}
+                          className="border-transparent hover:border-slate-200 focus-visible:ring-1 h-8 bg-transparent print:p-0"
+                          placeholder="目标客户"
+                        />
+                      </TableCell>
+                      <TableCell className="p-2">
+                        <Input 
+                          value={article.product} 
+                          onChange={(e) => setArticles(articles.map(a => a.id === article.id ? { ...a, product: e.target.value } : a))}
+                          className="border-transparent hover:border-slate-200 focus-visible:ring-1 h-8 bg-transparent print:p-0"
+                          placeholder="主推产品"
+                        />
+                      </TableCell>
+                      <TableCell className="p-2">
+                        <Input 
+                          value={article.viewpoint} 
+                          onChange={(e) => setArticles(articles.map(a => a.id === article.id ? { ...a, viewpoint: e.target.value } : a))}
+                          className="border-transparent hover:border-slate-200 focus-visible:ring-1 h-8 bg-transparent print:p-0"
+                          placeholder="核心观点"
+                        />
+                      </TableCell>
+                      <TableCell className="p-2 text-right print:hidden">
+                        <Button variant="ghost" size="icon" onClick={() => setArticles(articles.filter(a => a.id !== article.id))} className="h-8 w-8 text-slate-400 hover:text-red-500">
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                  {articles.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center text-slate-500 py-4 print:hidden">
+                        暂无文章规划，请点击右上角添加
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
           </section>
 
         </div>
