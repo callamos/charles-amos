@@ -8,29 +8,29 @@ import { Plus, Trash2, TrendingUp, Users, Eye, MousePointerClick, Activity, Play
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const websiteTrafficData = [
-  { name: '04-20', pv: 130 },
-  { name: '04-21', pv: 121 },
-  { name: '04-22', pv: 121 },
-  { name: '04-23', pv: 175 },
-  { name: '04-24', pv: 983 },
-  { name: '04-25', pv: 39 },
-  { name: '04-26', pv: 55 },
+  { name: '04-27', pv: 111 },
+  { name: '04-28', pv: 142 },
+  { name: '04-29', pv: 81 },
+  { name: '05-01', pv: 28 },
+  { name: '05-02', pv: 43 },
+  { name: '05-03', pv: 26 },
+  { name: '05-04', pv: 39 },
 ];
 
 const wechatSourceData = [
-  { name: '朋友圈', value: 30.9 },
-  { name: '服务号消息', value: 22.3 },
-  { name: '搜一搜', value: 21.3 },
-  { name: '服务号主页', value: 18.1 },
-  { name: '聊天会话', value: 9.6 },
-  { name: '其它', value: 1.1 },
+  { name: '朋友圈', value: 34.7 },
+  { name: '服务号消息', value: 26.5 },
+  { name: '搜一搜', value: 26.5 },
+  { name: '服务号主页', value: 12.9 },
+  { name: '聊天会话', value: 2.7 },
+  { name: '其它', value: 1.4 },
 ];
 
 export default function App() {
   // State for editable fields
   const [reportTitle, setReportTitle] = useState('工作周报');
   const [reporterName, setReporterName] = useState('Amos');
-  const [reportDate, setReportDate] = useState('2026-04-20到2026-04-24');
+  const [reportDate, setReportDate] = useState('2026-04-27到2026-05-05');
   
   const [section1Title, setSection1Title] = useState('一、核心数据与流量趋势');
   const [section2Title, setSection2Title] = useState('二、视频号数据');
@@ -39,16 +39,14 @@ export default function App() {
   const [section5Title, setSection5Title] = useState('五、其它');
   const [section6Title, setSection6Title] = useState('六、周报总结');
 
-  const [videoSummary, setVideoSummary] = useState('视频号完播率从一开始2%随着播放量的上涨上升到了4.73%，说明算法把视频推送到了更精准的用户。本次内容新增2个关注（一个新人，一个老客户）。无论从播放量、完播率还是总体数据对比上一期都是上升。');
-  const [otherSummary, setOtherSummary] = useState('小红书删帖停更\n新增运营视频号对应的公众号，用于合规获取客资\n\n更新');
-  const [weeklySummary, setWeeklySummary] = useState('本周运营工作整体进展良好。官网流量稳定（1624PV），新访客占比极高（93.8%），带来了4名网站询价和5个明确物料需求（如力特、C&K等）的贸易商留资。这不仅得益于核心关键词（如上海力特代理、KSS华东代理）稳居百度第一页首位，也表明了搜索引流质量精准。\n\n视频号迎来突破，完播率提升至4.73%，超96%同类视频播放表现，说明算法分发至更精准受众，成功实现2个新增关注。\n\n公众号文章阅读意愿略有下滑（94次），新增关注1人（来源官网二维码），后续在公众号图文端需要测试新的内容切入点响应趋势。\n策略调整方面：受小红书删帖停更影响，本周已启用全新关联的微信公众号（针对视频号引流），确保未来的获客途径更加合规且顺畅。未来仍以视频号+官网SEO为主抓手，进一步放大精准流量池。');
+  const [videoSummary, setVideoSummary] = useState('单条视频新增关注6人\n播放量969超过91.76%同类视频\n平均播放时长7.52秒超过56.12%同类视频\n3S以上完播率42.41% 超过31.68%同类视频');
+  const [otherSummary, setOtherSummary] = useState('');
+  const [weeklySummary, setWeeklySummary] = useState('官网询价维持正常水平，公众号和视频号用户关注转化率显著提高，可以看到整体播放阅读数据不及上一周；原因是大家都想过五一工作激情下滑。AMOS实验室公众号迎来首次询价。');
   
   const [inquiries, setInquiries] = useState([
-    { id: 1, brand: '力特', partNo: 'L70QS800.X', usage: '-', type: '贸易商' },
-    { id: 2, brand: '力特', partNo: 'AQ36-02HTG', usage: '100k', type: '贸易商' },
-    { id: 3, brand: 'C&K', partNo: 'PTS525SM15SMTR2', usage: '14K', type: '贸易商' },
-    { id: 4, brand: 'C&K', partNo: 'KMT072NGJLHS', usage: '27K', type: '贸易商' },
-    { id: 5, brand: 'C&K', partNo: 'HDT0001', usage: '20K', type: '贸易商' },
+    { id: 1, brand: '-', partNo: '-', usage: '-', type: '官网询价' },
+    { id: 2, brand: '-', partNo: '-', usage: '-', type: '官网询价' },
+    { id: 3, brand: '-', partNo: '-', usage: '-', type: '公众号询价' },
   ]);
 
   const [seo, setSeo] = useState([
@@ -129,9 +127,9 @@ export default function App() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">1 <span className="text-sm font-normal text-slate-500">人</span></div>
+                  <div className="text-2xl font-bold">6 <span className="text-sm font-normal text-slate-500">人</span></div>
                   <p className="text-xs text-blue-600 flex items-center mt-1">
-                    来源官网二维码
+                    用户关注转化率提升
                   </p>
                 </CardContent>
               </Card>
@@ -143,21 +141,24 @@ export default function App() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">1624 <span className="text-sm font-normal text-slate-500">次</span></div>
+                  <div className="text-2xl font-bold">700 <span className="text-sm font-normal text-slate-500">次</span></div>
                   <p className="text-xs text-emerald-600 mt-1">
-                    新访客占比93.8%
+                    新访客占比93.7%
                   </p>
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-slate-500 flex justify-between items-center">
-                    官网询价人数
+                    询价人数
                     <Search className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">4 <span className="text-sm font-normal text-slate-500">人</span></div>
+                  <div className="text-2xl font-bold">3 <span className="text-sm font-normal text-slate-500">人</span></div>
+                  <p className="text-xs text-emerald-600 mt-1">
+                    官网2人，公众号1人
+                  </p>
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200">
@@ -168,9 +169,9 @@ export default function App() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">94 <span className="text-sm font-normal text-slate-500">次</span></div>
+                  <div className="text-2xl font-bold">147 <span className="text-sm font-normal text-slate-500">次</span></div>
                   <p className="text-xs text-amber-600 mt-1">
-                    阅读意愿下滑
+                    因长假有所下滑
                   </p>
                 </CardContent>
               </Card>
@@ -228,29 +229,29 @@ export default function App() {
               <Card className="print:shadow-none print:border-slate-200 bg-slate-50 border-none shadow-none print:bg-slate-50">
                 <CardContent className="p-4 flex flex-col justify-center">
                   <div className="text-sm font-medium text-slate-500 mb-1 flex items-center gap-1.5"><PlaySquare className="w-4 h-4"/>播放量</div>
-                  <div className="text-2xl font-bold text-slate-900">1460 <span className="text-sm font-normal text-slate-500">次</span></div>
-                  <div className="text-xs text-blue-600 mt-1">超过 96.62% 同类视频</div>
+                  <div className="text-2xl font-bold text-slate-900">969 <span className="text-sm font-normal text-slate-500">次</span></div>
+                  <div className="text-xs text-blue-600 mt-1">超过 91.76% 同类视频</div>
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200 bg-slate-50 border-none shadow-none print:bg-slate-50">
                 <CardContent className="p-4 flex flex-col justify-center">
-                  <div className="text-sm font-medium text-slate-500 mb-1 flex items-center gap-1.5"><BarChart3 className="w-4 h-4"/>完播率</div>
-                  <div className="text-2xl font-bold text-slate-900">4.73%</div>
-                  <div className="text-xs text-blue-600 mt-1">超过 26.87% 同类视频</div>
+                  <div className="text-sm font-medium text-slate-500 mb-1 flex items-center gap-1.5"><Users className="w-4 h-4"/>新增关注</div>
+                  <div className="text-2xl font-bold text-slate-900">6 <span className="text-sm font-normal text-slate-500">人</span></div>
+                  <div className="text-xs text-blue-600 mt-1">单条视频引流</div>
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200 bg-slate-50 border-none shadow-none print:bg-slate-50">
                 <CardContent className="p-4 flex flex-col justify-center">
                   <div className="text-sm font-medium text-slate-500 mb-1 flex items-center gap-1.5"><Clock className="w-4 h-4"/>平均播放时长</div>
-                  <div className="text-2xl font-bold text-slate-900">16.79 <span className="text-sm font-normal text-slate-500">秒</span></div>
-                  <div className="text-xs text-blue-600 mt-1">超过 91.93% 同类视频</div>
+                  <div className="text-2xl font-bold text-slate-900">7.52 <span className="text-sm font-normal text-slate-500">秒</span></div>
+                  <div className="text-xs text-blue-600 mt-1">超过 56.12% 同类视频</div>
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200 bg-slate-50 border-none shadow-none print:bg-slate-50">
                 <CardContent className="p-4 flex flex-col justify-center">
                   <div className="text-sm font-medium text-slate-500 mb-1 flex items-center gap-1.5"><TrendingUp className="w-4 h-4"/>3S以上完播率</div>
-                  <div className="text-2xl font-bold text-slate-900">47.34%</div>
-                  <div className="text-xs text-blue-600 mt-1">超过 48.69% 同类视频</div>
+                  <div className="text-2xl font-bold text-slate-900">42.41%</div>
+                  <div className="text-xs text-blue-600 mt-1">超过 31.68% 同类视频</div>
                 </CardContent>
               </Card>
             </div>
