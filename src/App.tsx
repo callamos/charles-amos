@@ -8,29 +8,29 @@ import { Plus, Trash2, TrendingUp, Users, Eye, MousePointerClick, Activity, Play
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const websiteTrafficData = [
-  { name: '05-11', pv: 73 },
-  { name: '05-12', pv: 67 },
-  { name: '05-13', pv: 86 },
-  { name: '05-14', pv: 81 },
-  { name: '05-15', pv: 71 },
-  { name: '05-16', pv: 18 },
-  { name: '05-17', pv: 33 },
+  { name: '05-18', pv: 55 },
+  { name: '05-19', pv: 80 },
+  { name: '05-20', pv: 63 },
+  { name: '05-21', pv: 55 },
+  { name: '05-22', pv: 49 },
+  { name: '05-23', pv: 56 },
+  { name: '05-24', pv: 53 },
 ];
 
 const wechatSourceData = [
-  { name: '朋友圈', value: 34.7 },
-  { name: '服务号消息', value: 26.5 },
-  { name: '搜一搜', value: 26.5 },
-  { name: '服务号主页', value: 12.9 },
-  { name: '聊天会话', value: 2.7 },
-  { name: '其它', value: 1.4 },
+  { name: '朋友圈', value: 33.4 },
+  { name: '服务号消息', value: 22.1 },
+  { name: '搜一搜', value: 27.8 },
+  { name: '服务号主页', value: 15.2 },
+  { name: '聊天会话', value: 2.8 },
+  { name: '其它', value: 2.6 },
 ];
 
 export default function App() {
   // State for editable fields
   const [reportTitle, setReportTitle] = useState('工作周报');
   const [reporterName, setReporterName] = useState('Amos');
-  const [reportDate, setReportDate] = useState('2026-05-11到2026-05-15');
+  const [reportDate, setReportDate] = useState('2026-05-18到2026-05-22');
   
   const [section1Title, setSection1Title] = useState('一、核心数据与流量趋势');
   const [section2Title, setSection2Title] = useState('二、新媒体矩阵');
@@ -41,33 +41,46 @@ export default function App() {
 
   // Media Matrix State
   const [elaineVideos, setElaineVideos] = useState([
-    { id: 1, title: '转行后的厂妹出差及拜访日常', date: '2026-05-17', views: '329', hearts: '6', likes: '-', comments: '1', forwards: '12', follows: '-', completion: '-', interaction: '5.78%' },
-    { id: 2, title: '插片保险丝的小型化方案', date: '2026-05-14', views: '1278', hearts: '50', likes: '38', comments: '9', forwards: '28', follows: '5', completion: '10.80%', interaction: '6.81%' },
-    { id: 3, title: '涨价不可怕，没预案才可怕', date: '2026-05-11', views: '3020', hearts: '68', likes: '80', comments: '15', forwards: '32', follows: '9', completion: '6.59%', interaction: '3.81%' },
+    { id: 1, title: '选型避坑：保险丝越大越危险', date: '2026/5/23', views: '874', hearts: '42', likes: '31', comments: '7', forwards: '6', follows: '2', completion: '7.33%', interaction: '--' },
+    { id: 2, title: '服务器电源降不下来', date: '2026/5/22', views: '996', hearts: '49', likes: '35', comments: '9', forwards: '15', follows: '2', completion: '5.43%', interaction: '--' },
+    { id: 3, title: '流量之后拼质量', date: '2026/5/20', views: '1939', hearts: '57', likes: '49', comments: '12', forwards: '23', follows: '3', completion: '4.85%', interaction: '--' },
   ]);
-  const [elaineSummary, setElaineSummary] = useState('Elaine本周重点发布了三条视频，其中“涨价不可怕，没预案才可怕”数据表现最好，播放量达3020次，带来9个新增关注。内容贴合行情热点，引发了较好的用户互动。');
+  const [elaineDouyin, setElaineDouyin] = useState([
+    { id: 1, title: '精神股东参观仓库', views: '36', completion: '34%', follows: '--', likes: '4', favs: '1', coverClick: '--' },
+    { id: 2, title: '涨价不可怕，没预案才可怕', views: '1837', completion: '2.17%', follows: '7', likes: '16', favs: '11', coverClick: '--' },
+  ]);
+  const [elaineSummary, setElaineSummary] = useState('新视频“流量之后拼质量”播放量较好，“涨价不可怕，没预案才可怕”在抖音也获超1800播放。');
 
   const [jessicaVideos, setJessicaVideos] = useState([
-    { id: 1, title: 'TVS为什么能反应这么快', date: '2026-05-15', views: '1305', likes: '25', comments: '7', forwards: '9', completion: '-' },
-    { id: 2, title: '很多芯片真正怕的', date: '2026-05-13', views: '2061', likes: '30', comments: '10', forwards: '12', completion: '-' },
-    { id: 3, title: '制造业个人成长', date: '2026-05-11', views: '4495', likes: '43', comments: '20', forwards: '30', completion: '-' },
+    { id: 1, title: '电路保护器材是不是越大越好', date: '2026/5/18', views: '1530', hearts: '43', likes: '36', comments: '10', forwards: '3', follows: '4', completion: '10.27%', interaction: '6.31%' },
+    { id: 2, title: '你以为ESD静电没有杀伤力', date: '2026/5/20', views: '2698', hearts: '35', likes: '40', comments: '5', forwards: '9', follows: '4', completion: '18.72%', interaction: '3.41%' },
+    { id: 3, title: '有了TVS为什么还要保险丝', date: '2026/5/22', views: '965', hearts: '26', likes: '24', comments: '6', forwards: '7', follows: '8', completion: '12.33%', interaction: '7.55%' },
   ]);
-  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周发布三条内容，其中“制造业个人成长”播放量最高（4495次），职场类话题更容易破圈获得大众流量；而技术类话题（TVS等）播放量稳定在1000-2000之间，流量更精准。');
+  const [jessicaDouyin, setJessicaDouyin] = useState([
+    { id: 1, title: '电路保护器材是不是越大越好', views: '1610', completion: '4.71%', follows: '4', likes: '23', favs: '2', coverClick: '--' },
+    { id: 2, title: '你以为ESD静电没有杀伤力', views: '2552', completion: '8.44%', follows: '13', likes: '28', favs: '5', coverClick: '--' },
+    { id: 3, title: '有了TVS为什么还要保险丝', views: '8457', completion: '5.39%', follows: '55', likes: '146', favs: '44', coverClick: '--' },
+  ]);
+  const [jessicaSummary, setJessicaSummary] = useState('“有了TVS为什么还要保险丝”在抖音大爆，播放量达8457次，带来55个新增关注。');
 
   const [amosVideos, setAmosVideos] = useState([
-    { id: 1, title: '户外LED雷击', date: '2026-05-12', views: '1102', hearts: '19', likes: '28', comments: '5', forwards: '13', follows: '3', completion: '2.81%', interaction: '5.56%' },
-    { id: 2, title: '什么是TVS', date: '2026-05-13', views: '1484', hearts: '21', likes: '27', comments: '2', forwards: '21', follows: '17', completion: '7.55%', interaction: '5.81%' },
+    { id: 1, title: '压敏电阻', date: '2026/5/18', views: '3740', hearts: '35', likes: '68', comments: '7', forwards: '77', follows: '158', completion: '3.82%', interaction: '9.49%' },
+    { id: 2, title: 'IGBT', date: '2026/5/19', views: '1775', hearts: '28', likes: '34', comments: '5', forwards: '4', follows: '46', completion: '5.41%', interaction: '7.9%' },
+    { id: 3, title: '云逛查尔斯', date: '2026/5/22', views: '2207', hearts: '53', likes: '69', comments: '17', forwards: '16', follows: '60', completion: '6.8%', interaction: '9.97%' },
   ]);
   const [amosDouyin, setAmosDouyin] = useState([
-    { id: 1, title: '什么是TVS', views: '2945', completion: '5.19%', follows: '12', likes: '75', favs: '25', coverClick: '93.75%' },
+    { id: 1, title: '压敏电阻', views: '1830', completion: '2.64%', follows: '5', likes: '15', favs: '8', coverClick: '--' },
+    { id: 2, title: 'IGBT', views: '1475', completion: '3.33%', follows: '3', likes: '24', favs: '13', coverClick: '--' },
+    { id: 3, title: '云逛查尔斯', views: '612', completion: '1.56%', follows: '5', likes: '6', favs: '2', coverClick: '--' },
   ]);
-  const [amosSummary, setAmosSummary] = useState('Amos本周视频号和抖音同步分发，“什么是TVS”在抖音获得了2945次播放和12个新增关注，封面点击率高达93.75%，说明标题和封面设计非常成功。视频号端表现也较为稳定，两平台累计带来超30个关注。');
+  const [amosSummary, setAmosSummary] = useState('视频号端“压敏电阻”起量，单条涨粉158人，抖音表现相对平稳。整体新媒体矩阵累计涨粉1454人。');
 
   const [otherSummary, setOtherSummary] = useState('');
-  const [weeklySummary, setWeeklySummary] = useState('本周官网浏览量基本稳定，高质量客询（如赛福特电子）表明SEO带来了精准的大客户。公众号新增关注2人均来自文章页，仍需稳定输出专业内容。新媒体矩阵（Elaine/Jessica/Amos）已形成初步规模，各具特色，其中认知/成长类话题易获高流量，专业科普类话题带来了精准留资。');
+  const [weeklySummary, setWeeklySummary] = useState('本周全网累计涨粉近1500人，主要由视频号及抖音贡献，其中Amos和Jessica在专业硬核科普上取得较好突破；官网流量维持正常水平，带来2名明确需求的终端客户，询单质量较高。公众号方面通过搜一搜带来精准关注，需持续进行长尾内容建设。');
   
   const [inquiries, setInquiries] = useState([
-    { id: 1, name: '上海赛福特电子有限公司', partNo: '0467.500NRHF', usage: '200k', app: '烟雾报警器', date: '2026-05-14', status: '邮件询价中', mpDate: '2026-12' },
+    { id: 1, name: '深圳市汇芯高新科技有限公司', partNo: 'CPC1117N(固态继电器)', usage: '50k', app: '智能I/O模块', date: '2026-05-21', status: '邮件询价中', mpDate: '已经量产' },
+    { id: 2, name: '石家庄傲尔科技有限公司', partNo: '1812L300/24SLER(PPTC)', usage: '95000', app: '扫地机器人', date: '2026-05-18', status: '邮件询价中', mpDate: '未启动' },
   ]);
 
   const [seo, setSeo] = useState([
@@ -143,14 +156,14 @@ export default function App() {
               <Card className="print:shadow-none print:border-slate-200">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-slate-500 flex justify-between items-center">
-                    新增关注人数
+                    全网新增关注
                     <Users className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">2 <span className="text-sm font-normal text-slate-500">人</span></div>
+                  <div className="text-2xl font-bold">1454 <span className="text-sm font-normal text-slate-500">人</span></div>
                   <p className="text-xs text-blue-600 flex items-center mt-1">
-                    均来自文章页关注
+                    视频号与抖音涨粉
                   </p>
                 </CardContent>
               </Card>
@@ -162,37 +175,37 @@ export default function App() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">429 <span className="text-sm font-normal text-slate-500">次</span></div>
+                  <div className="text-2xl font-bold">411 <span className="text-sm font-normal text-slate-500">次</span></div>
                   <p className="text-xs text-emerald-600 mt-1">
-                    新访客占比91.1%
+                    新访客占比91.4%
                   </p>
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-slate-500 flex justify-between items-center">
-                    询价人数
+                    官网询价人数
                     <Search className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">2 <span className="text-sm font-normal text-slate-500">人</span></div>
+                  <div className="text-2xl font-bold">4 <span className="text-sm font-normal text-slate-500">人</span></div>
                   <p className="text-xs text-emerald-600 mt-1">
-                    终端客户1人
+                    终端客户2人
                   </p>
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-slate-500 flex justify-between items-center">
-                    文章阅读量
+                    公众号关注
                     <Eye className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">114 <span className="text-sm font-normal text-slate-500">次</span></div>
+                  <div className="text-2xl font-bold">2 <span className="text-sm font-normal text-slate-500">人</span></div>
                   <p className="text-xs text-amber-600 mt-1">
-                    正常波动
+                    均来自搜一搜
                   </p>
                 </CardContent>
               </Card>
@@ -248,18 +261,18 @@ export default function App() {
             
             {/* Elaine */}
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-slate-800">Elaine <span className="text-sm font-normal text-slate-500 ml-2">视频号</span></h3>
-              <div className="border rounded-lg overflow-hidden print:border-slate-300">
+              <h3 className="text-lg font-semibold text-slate-800">Elaine <span className="text-sm font-normal text-slate-500 ml-2">视频号 & 抖音</span></h3>
+              <div className="border rounded-lg overflow-hidden print:border-slate-300 mb-2">
                 <Table>
                   <TableHeader className="bg-slate-50 print:bg-slate-100">
                     <TableRow>
-                      <TableHead>标题</TableHead>
+                      <TableHead>视频号平台</TableHead>
                       <TableHead>发布日期</TableHead>
                       <TableHead>播放量</TableHead>
                       <TableHead>红心 / 点赞 / 评论 / 转发</TableHead>
                       <TableHead>新增关注</TableHead>
                       <TableHead>完播率</TableHead>
-                      <TableHead>基础互动率</TableHead>
+                      <TableHead>综合互动率</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -277,6 +290,34 @@ export default function App() {
                   </TableBody>
                 </Table>
               </div>
+              <div className="border rounded-lg overflow-hidden print:border-slate-300 mb-2">
+                <Table>
+                  <TableHeader className="bg-slate-50 print:bg-slate-100">
+                    <TableRow>
+                      <TableHead>抖音平台</TableHead>
+                      <TableHead>播放量</TableHead>
+                      <TableHead>完播率</TableHead>
+                      <TableHead>新增关注</TableHead>
+                      <TableHead>点赞</TableHead>
+                      <TableHead>收藏</TableHead>
+                      <TableHead>封面点击</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {elaineDouyin.map((item) => (
+                      <TableRow key={item.id}>
+                        <TableCell className="font-medium">{item.title}</TableCell>
+                        <TableCell>{item.views}</TableCell>
+                        <TableCell>{item.completion}</TableCell>
+                        <TableCell>{item.follows}</TableCell>
+                        <TableCell>{item.likes}</TableCell>
+                        <TableCell>{item.favs}</TableCell>
+                        <TableCell>{item.coverClick}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
               <Textarea 
                 value={elaineSummary}
                 onChange={(e) => setElaineSummary(e.target.value)}
@@ -287,18 +328,18 @@ export default function App() {
 
             {/* Jessica */}
             <div className="space-y-3 pt-2">
-              <h3 className="text-lg font-semibold text-slate-800">Jessica <span className="text-sm font-normal text-slate-500 ml-2">视频号</span></h3>
-              <div className="border rounded-lg overflow-hidden print:border-slate-300">
+              <h3 className="text-lg font-semibold text-slate-800">Jessica <span className="text-sm font-normal text-slate-500 ml-2">视频号 & 抖音</span></h3>
+              <div className="border rounded-lg overflow-hidden print:border-slate-300 mb-2">
                 <Table>
                   <TableHeader className="bg-slate-50 print:bg-slate-100">
                     <TableRow>
-                      <TableHead>标题</TableHead>
+                      <TableHead>视频号平台</TableHead>
                       <TableHead>发布日期</TableHead>
                       <TableHead>播放量</TableHead>
-                      <TableHead>点赞</TableHead>
-                      <TableHead>评论</TableHead>
-                      <TableHead>转发</TableHead>
+                      <TableHead>红心 / 点赞 / 评论 / 转发</TableHead>
+                      <TableHead>新增关注</TableHead>
                       <TableHead>完播率</TableHead>
+                      <TableHead>综合互动率</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -307,10 +348,38 @@ export default function App() {
                         <TableCell className="font-medium">{item.title}</TableCell>
                         <TableCell>{item.date}</TableCell>
                         <TableCell>{item.views}</TableCell>
-                        <TableCell>{item.likes}</TableCell>
-                        <TableCell>{item.comments}</TableCell>
-                        <TableCell>{item.forwards}</TableCell>
+                        <TableCell>{item.hearts} / {item.likes} / {item.comments} / {item.forwards}</TableCell>
+                        <TableCell>{item.follows}</TableCell>
                         <TableCell>{item.completion}</TableCell>
+                        <TableCell>{item.interaction}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+              <div className="border rounded-lg overflow-hidden print:border-slate-300 mb-2">
+                <Table>
+                  <TableHeader className="bg-slate-50 print:bg-slate-100">
+                    <TableRow>
+                      <TableHead>抖音平台</TableHead>
+                      <TableHead>播放量</TableHead>
+                      <TableHead>完播率</TableHead>
+                      <TableHead>新增关注</TableHead>
+                      <TableHead>点赞</TableHead>
+                      <TableHead>收藏</TableHead>
+                      <TableHead>封面点击</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {jessicaDouyin.map((item) => (
+                      <TableRow key={item.id}>
+                        <TableCell className="font-medium">{item.title}</TableCell>
+                        <TableCell>{item.views}</TableCell>
+                        <TableCell>{item.completion}</TableCell>
+                        <TableCell>{item.follows}</TableCell>
+                        <TableCell>{item.likes}</TableCell>
+                        <TableCell>{item.favs}</TableCell>
+                        <TableCell>{item.coverClick}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -337,7 +406,7 @@ export default function App() {
                       <TableHead>红心 / 点赞 / 评论 / 转发</TableHead>
                       <TableHead>新增关注</TableHead>
                       <TableHead>完播率</TableHead>
-                      <TableHead>基础互动率</TableHead>
+                      <TableHead>综合互动率</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
