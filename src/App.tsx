@@ -41,46 +41,44 @@ export default function App() {
 
   // Media Matrix State
   const [elaineVideos, setElaineVideos] = useState([
-    { id: 1, title: '选型避坑：保险丝越大越危险', date: '2026/5/23', views: '874', hearts: '42', likes: '31', comments: '7', forwards: '6', follows: '2', completion: '7.33%', interaction: '--' },
-    { id: 2, title: '服务器电源降不下来', date: '2026/5/22', views: '996', hearts: '49', likes: '35', comments: '9', forwards: '15', follows: '2', completion: '5.43%', interaction: '--' },
-    { id: 3, title: '流量之后拼质量', date: '2026/5/20', views: '1939', hearts: '57', likes: '49', comments: '12', forwards: '23', follows: '3', completion: '4.85%', interaction: '--' },
+    { id: 1, title: '报价只是开始,交付才是考验', date: '2026/5/26', views: '2906', hearts: '79', likes: '81', comments: '18', forwards: '21', follows: '-', completion: '8.16%', interaction: '--' },
+    { id: 2, title: '30A电流不能选30A保险丝', date: '2026/5/28', views: '1447', hearts: '47', likes: '30', comments: '7', forwards: '11', follows: '-', completion: '9.19%', interaction: '--' },
   ]);
   const [elaineDouyin, setElaineDouyin] = useState([
-    { id: 1, title: '精神股东参观仓库', views: '36', completion: '34%', follows: '--', likes: '4', favs: '1', coverClick: '--' },
-    { id: 2, title: '涨价不可怕，没预案才可怕', views: '1837', completion: '2.17%', follows: '7', likes: '16', favs: '11', coverClick: '--' },
+    { id: 1, title: '报价只是开始,交付才是考验', views: '-', completion: '-', follows: '-', likes: '5', favs: '3', coverClick: '--' },
+    { id: 2, title: '30A电流不能选30A保险丝', views: '-', completion: '-', follows: '-', likes: '12', favs: '6', coverClick: '--' },
   ]);
-  const [elaineSummary, setElaineSummary] = useState('新视频“流量之后拼质量”播放量较好，“涨价不可怕，没预案才可怕”在抖音也获超1800播放。');
+  const [elaineSummary, setElaineSummary] = useState('本周分享交付案例“报价只是开始，交付才是考验”获得较高播放及点赞互动；后续将持续提升行业洞察类内容的质量。');
 
   const [jessicaVideos, setJessicaVideos] = useState([
-    { id: 1, title: '电路保护器材是不是越大越好', date: '2026/5/18', views: '1530', hearts: '43', likes: '36', comments: '10', forwards: '3', follows: '4', completion: '10.27%', interaction: '6.31%' },
-    { id: 2, title: '你以为ESD静电没有杀伤力', date: '2026/5/20', views: '2698', hearts: '35', likes: '40', comments: '5', forwards: '9', follows: '4', completion: '18.72%', interaction: '3.41%' },
-    { id: 3, title: '有了TVS为什么还要保险丝', date: '2026/5/22', views: '965', hearts: '26', likes: '24', comments: '6', forwards: '7', follows: '8', completion: '12.33%', interaction: '7.55%' },
+    { id: 1, title: '不同场景TVS不一样', date: '2026/5/25', views: '776', hearts: '30', likes: '23', comments: '3', forwards: '2', follows: '2', completion: '4.64%', interaction: '--' },
+    { id: 2, title: '车规级元器件为什么这么牛', date: '2026/5/27', views: '1039', hearts: '36', likes: '25', comments: '4', forwards: '7', follows: '5', completion: '9.05%', interaction: '--' },
+    { id: 3, title: '为什么力特保险丝越做越小？', date: '2026/5/29', views: '860', hearts: '20', likes: '18', comments: '0', forwards: '4', follows: '2', completion: '5.65%', interaction: '--' },
   ]);
   const [jessicaDouyin, setJessicaDouyin] = useState([
-    { id: 1, title: '电路保护器材是不是越大越好', views: '1610', completion: '4.71%', follows: '4', likes: '23', favs: '2', coverClick: '--' },
-    { id: 2, title: '你以为ESD静电没有杀伤力', views: '2552', completion: '8.44%', follows: '13', likes: '28', favs: '5', coverClick: '--' },
-    { id: 3, title: '有了TVS为什么还要保险丝', views: '8457', completion: '5.39%', follows: '55', likes: '146', favs: '44', coverClick: '--' },
+    { id: 1, title: '不同场景TVS不一样', views: '1410', completion: '3.53%', follows: '5', likes: '22', favs: '4', coverClick: '--' },
+    { id: 2, title: '车规级元器件为什么这么牛', views: '1100', completion: '5.22%', follows: '4', likes: '15', favs: '5', coverClick: '--' },
+    { id: 3, title: '为什么力特保险丝越做越小？', views: '1900', completion: '2.68%', follows: '8', likes: '25', favs: '6', coverClick: '--' },
   ]);
-  const [jessicaSummary, setJessicaSummary] = useState('“有了TVS为什么还要保险丝”在抖音大爆，播放量达8457次，带来55个新增关注。');
+  const [jessicaSummary, setJessicaSummary] = useState('本周三条视频表现稳定，在抖音端“为什么力特保险丝越做越小”获得1900次播放与8个涨粉，可见垂直元器件科普依然受欢迎。');
 
   const [amosVideos, setAmosVideos] = useState([
-    { id: 1, title: '压敏电阻', date: '2026/5/18', views: '3740', hearts: '35', likes: '68', comments: '7', forwards: '77', follows: '158', completion: '3.82%', interaction: '9.49%' },
-    { id: 2, title: 'IGBT', date: '2026/5/19', views: '1775', hearts: '28', likes: '34', comments: '5', forwards: '4', follows: '46', completion: '5.41%', interaction: '7.9%' },
-    { id: 3, title: '云逛查尔斯', date: '2026/5/22', views: '2207', hearts: '53', likes: '69', comments: '17', forwards: '16', follows: '60', completion: '6.8%', interaction: '9.97%' },
+    { id: 1, title: '力特保险丝为什么越做越小', date: '2026/5/26', views: '942', hearts: '19', likes: '18', comments: '5', forwards: '9', follows: '2', completion: '2.55%', interaction: '--' },
+    { id: 2, title: '为什么MOS管不需要电流', date: '2026/5/27', views: '2670', hearts: '23', likes: '25', comments: '5', forwards: '18', follows: '13', completion: '12.25%', interaction: '--' },
+    { id: 3, title: '二极管不止一种', date: '2026/5/29', views: '788', hearts: '17', likes: '15', comments: '6', forwards: '11', follows: '4', completion: '2.54%', interaction: '--' },
   ]);
   const [amosDouyin, setAmosDouyin] = useState([
-    { id: 1, title: '压敏电阻', views: '1830', completion: '2.64%', follows: '5', likes: '15', favs: '8', coverClick: '--' },
-    { id: 2, title: 'IGBT', views: '1475', completion: '3.33%', follows: '3', likes: '24', favs: '13', coverClick: '--' },
-    { id: 3, title: '云逛查尔斯', views: '612', completion: '1.56%', follows: '5', likes: '6', favs: '2', coverClick: '--' },
+    { id: 1, title: '力特保险丝为什么越做越小', views: '1296', completion: '2.35%', follows: '2', likes: '15', favs: '2', coverClick: '--' },
+    { id: 2, title: '为什么MOS管不需要电流', views: '1.2W', completion: '2.93%', follows: '34', likes: '206', favs: '123', coverClick: '--' },
+    { id: 3, title: '二极管不止一种', views: '4668', completion: '1.54%', follows: '13', likes: '57', favs: '36', coverClick: '--' },
   ]);
-  const [amosSummary, setAmosSummary] = useState('视频号端“压敏电阻”起量，单条涨粉158人，抖音表现相对平稳。整体新媒体矩阵累计涨粉1454人。');
+  const [amosSummary, setAmosSummary] = useState('“为什么MOS管不需要电流”在抖音平台大爆，单视频突破1.2W播放量并带来34个涨粉。新媒体渠道首迎2个询价线索，内容变现能力初显。');
 
   const [otherSummary, setOtherSummary] = useState('');
-  const [weeklySummary, setWeeklySummary] = useState('本周全网累计涨粉近1500人，主要由视频号及抖音贡献，其中Amos和Jessica在专业硬核科普上取得较好突破；官网流量维持正常水平，带来2名明确需求的终端客户，询单质量较高。公众号方面通过搜一搜带来精准关注，需持续进行长尾内容建设。');
+  const [weeklySummary, setWeeklySummary] = useState('本周官网流量大增，工作日后半段（5.28-5.31）流量表现抢眼，整体新访客占比高达99%。最令人振奋的是，本周总计获得10个询盘，创下新纪录！其中官网贡献8单，Amos的新媒体矩阵也成功引流2单。\n\n全矩阵新媒体累计涨粉94人，Amos在抖音发布的“为什么MOS管不需要电流”播放量破1.2W。新媒体开始反接业务端，将继续放大科普内容矩阵的影响力。');
   
   const [inquiries, setInquiries] = useState([
-    { id: 1, name: '深圳市汇芯高新科技有限公司', partNo: 'CPC1117N(固态继电器)', usage: '50k', app: '智能I/O模块', date: '2026-05-21', status: '邮件询价中', mpDate: '已经量产' },
-    { id: 2, name: '石家庄傲尔科技有限公司', partNo: '1812L300/24SLER(PPTC)', usage: '95000', app: '扫地机器人', date: '2026-05-18', status: '邮件询价中', mpDate: '未启动' },
+    { id: 1, name: '-', partNo: '-', usage: '-', app: '-', date: '-', status: '暂无明细', mpDate: '-' },
   ]);
 
   const [seo, setSeo] = useState([
@@ -156,12 +154,12 @@ export default function App() {
               <Card className="print:shadow-none print:border-slate-200">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-slate-500 flex justify-between items-center">
-                    全网新增关注
+                    新媒体涨粉
                     <Users className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">1454 <span className="text-sm font-normal text-slate-500">人</span></div>
+                  <div className="text-2xl font-bold">94 <span className="text-sm font-normal text-slate-500">人</span></div>
                   <p className="text-xs text-blue-600 flex items-center mt-1">
                     视频号与抖音涨粉
                   </p>
@@ -175,23 +173,23 @@ export default function App() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">411 <span className="text-sm font-normal text-slate-500">次</span></div>
+                  <div className="text-2xl font-bold">894 <span className="text-sm font-normal text-slate-500">次</span></div>
                   <p className="text-xs text-emerald-600 mt-1">
-                    新访客占比91.4%
+                    新访客占比99%
                   </p>
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-slate-500 flex justify-between items-center">
-                    官网询价人数
+                    询价人数
                     <Search className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">4 <span className="text-sm font-normal text-slate-500">人</span></div>
+                  <div className="text-2xl font-bold">10 <span className="text-sm font-normal text-slate-500">人</span></div>
                   <p className="text-xs text-emerald-600 mt-1">
-                    终端客户2人
+                    创记录:官网8单,新媒体2单
                   </p>
                 </CardContent>
               </Card>
@@ -205,7 +203,7 @@ export default function App() {
                 <CardContent>
                   <div className="text-2xl font-bold">2 <span className="text-sm font-normal text-slate-500">人</span></div>
                   <p className="text-xs text-amber-600 mt-1">
-                    均来自搜一搜
+                    均来自官网引流
                   </p>
                 </CardContent>
               </Card>
