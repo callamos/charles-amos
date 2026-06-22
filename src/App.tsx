@@ -8,13 +8,13 @@ import { Plus, Trash2, TrendingUp, Users, Eye, MousePointerClick, Activity, Play
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const websiteTrafficData = [
-  { name: '06-08', pv: 227 },
-  { name: '06-09', pv: 134 },
-  { name: '06-10', pv: 111 },
-  { name: '06-11', pv: 106 },
-  { name: '06-12', pv: 77 },
-  { name: '06-13', pv: 128 },
-  { name: '06-14', pv: 210 },
+  { name: '06-15', pv: 101 },
+  { name: '06-16', pv: 140 },
+  { name: '06-17', pv: 110 },
+  { name: '06-18', pv: 99 },
+  { name: '06-19', pv: 31 },
+  { name: '06-20', pv: 25 },
+  { name: '06-21', pv: 56 },
 ];
 
 const wechatSourceData = [
@@ -31,7 +31,7 @@ export default function App() {
   // State for editable fields
   const [reportTitle, setReportTitle] = useState('工作周报');
   const [reporterName, setReporterName] = useState('Amos');
-  const [reportDate, setReportDate] = useState('2026-06-08到2026-06-12');
+  const [reportDate, setReportDate] = useState('2026-06-15到2026-06-21');
   
   const [section1Title, setSection1Title] = useState('一、核心数据与流量趋势');
   const [section2Title, setSection2Title] = useState('二、新媒体矩阵个人数据分析');
@@ -39,49 +39,52 @@ export default function App() {
   const [sectionGeoTitle, setSectionGeoTitle] = useState('四、GEO（AI搜索推荐）收录情况');
   const [section6Title, setSection6Title] = useState('五、周报总结');
 
+  // Core metrics states
+  const [followersCount, setFollowersCount] = useState('1573');
+  const [followersSub, setFollowersSub] = useState('视频号与抖音涨粉 (上周 166)');
+  const [trafficCount, setTrafficCount] = useState('562');
+  const [trafficSub, setTrafficSub] = useState('新客98.7% (上周 993)');
+  const [inquiryCount, setInquiryCount] = useState('5');
+  const [inquirySub, setInquirySub] = useState('官网 4 人, 抖音推荐 1 人 (上周 3)');
+  const [wechatFollowsCount, setWechatFollowsCount] = useState('1');
+  const [wechatFollowsSub, setWechatFollowsSub] = useState('文章页 1 人 (上周 2)');
+
   // Media Matrix State
   const [elaineVideos, setElaineVideos] = useState([
-    { id: 1, title: '江湖再见，祝你退休快乐', date: '2026/6/5', views: '3639', hearts: '88', likes: '68', comments: '13', forwards: '17', follows: '-', completion: '12.8%', interaction: '--' },
-    { id: 2, title: '缺货后，价格就不重要了', date: '2026/6/10', views: '1797', hearts: '58', likes: '35', comments: '3', forwards: '10', follows: '0', completion: '6.18%', interaction: '--' },
-    { id: 3, title: '缺货潮下 3 问避坑指南', date: '2026/6/13', views: '635', hearts: '35', likes: '25', comments: '5', forwards: '3', follows: '0', completion: '4.09%', interaction: '--' },
+    { id: 1, title: '30年一件事，电路保护更安心', date: '2026/6/17', views: '3923', hearts: '102', likes: '113', comments: '22', forwards: '37', follows: '11', completion: '5.81%', inquiry: '--' },
+    { id: 2, title: '供应商报价便宜一半，为什么我反而更担心', date: '2026/6/20', views: '1118', hearts: '46', likes: '37', comments: '7', forwards: '6', follows: '3', completion: '6.61%', inquiry: '--' },
+    { id: 3, title: '老板要降本，工程师却不敢签字?风险量化才是关键', date: '2026/6/21', views: '180', hearts: '22', likes: '13', comments: '1', forwards: '2', follows: '1', completion: '4.19%', inquiry: '--' },
   ]);
   const [elaineDouyin, setElaineDouyin] = useState([
-    { id: 1, title: '江湖再见，祝你退休快乐 (6/5)', views: '1325', completion: '-', follows: '1', likes: '16', favs: '2', coverClick: '--' },
-    { id: 2, title: '缺货后，价格就不重要了 (6/10)', views: '1169', completion: '3.43%', follows: '5', likes: '16', favs: '4', coverClick: '--' },
-    { id: 3, title: '缺货潮下 3 问避坑指南 (6/13)', views: '314', completion: '2.49%', follows: '0', likes: '7', favs: '2', coverClick: '--' },
+    { id: 1, title: '30年一件事，电路保护更安心', date: '2026/6/17', views: '--', completion: '1.12%', follows: '9', likes: '15', comments: '0', shares: '0', favs: '3', inquiry: '--', coverClick: '--' },
+    { id: 2, title: '供应商报价便宜一半，为什么我反而更担心', date: '2026/6/20', views: '--', completion: '1.64%', follows: '8', likes: '15', comments: '3', shares: '0', favs: '5', inquiry: '--', coverClick: '--' },
+    { id: 3, title: '老板要降本，工程师却不敢签字?风险量化才是关键', date: '2026/6/21', views: '--', completion: '0.78%', follows: '2', likes: '5', comments: '0', shares: '4', favs: '0', inquiry: '--', coverClick: '--' },
   ]);
-  const [elaineSummary, setElaineSummary] = useState('Elaine本周重点深耕缺货潮防坑及价格洞察选题，视频号端《缺货后，价格就不重要了》获得1797次播放，抖音端也收获1169次播放及5名新增关注。此外，由于情感化选题生命力强，上周发布的退港情怀主题视频在抖音仍在持续发挥长尾效应且斩获精准关注，整体内容策划兼顾专业科普和行业深度，传播力优良。');
+  const [elaineSummary, setElaineSummary] = useState('Elaine本周共发布3条视频。视频号端《30年一件事，电路保护更安心》表现最出色，播放量达3923，点赞113并带来11个新增关注。抖音端在点赞 and 粉丝转化方面稳健，两篇主推视频均收获15个赞，累计带来19名新增粉丝。双平台内容均围绕电路保护、采购避坑与量化风控等高专业度选题，切中受众痛点。');
 
   const [jessicaVideos, setJessicaVideos] = useState([
-    { id: 1, title: '有了TVS为什么还要MOV？', date: '2026/6/3', views: '1305', hearts: '27', likes: '3', comments: '6', forwards: '6', follows: '4', completion: '10.5%', interaction: '--' },
-    { id: 2, title: '这家公司有点特别', date: '2026/6/5', views: '1933', hearts: '47', likes: '36', comments: '20', forwards: '6', follows: '3', completion: '26.68%', interaction: '--' },
-    { id: 3, title: '一个电路里，到底应该放几颗保险丝', date: '2026/6/8', views: '1157', hearts: '28', likes: '21', comments: '5', forwards: '2', follows: '0', completion: '8.21%', interaction: '--' },
-    { id: 4, title: '碳化硅火', date: '2026/6/11', views: '1092', hearts: '32', likes: '21', comments: '5', forwards: '5', follows: '2', completion: '6.04%', interaction: '--' },
-    { id: 5, title: 'eFuse电子保险丝电子在哪', date: '2026/6/12', views: '700', hearts: '25', likes: '24', comments: '5', forwards: '2', follows: '3', completion: '5.03%', interaction: '--' },
+    { id: 1, title: 'eFuse为什么不能完全替代保险丝？', date: '2026/6/15', views: '1010', hearts: '22', likes: '20', comments: '5', forwards: '3', follows: '2', completion: '7.88%', inquiry: '--' },
+    { id: 2, title: '为什么电源效率永远做不到100%？', date: '2026/6/17', views: '1002', hearts: '38', likes: '32', comments: '4', forwards: '4', follows: '4', completion: '6.10%', inquiry: '--' },
+    { id: 3, title: '6A烧，10A也烧。问题不在安培数', date: '2026/6/20', views: '710', hearts: '22', likes: '20', comments: '10', forwards: '5', follows: '3', completion: '14.14%', inquiry: '--' },
   ]);
   const [jessicaDouyin, setJessicaDouyin] = useState([
-    { id: 1, title: '有了TVS为什么还要MOV？ (6/3)', views: '2370', completion: '6.56%', follows: '-', likes: '60', favs: '27', coverClick: '--' },
-    { id: 2, title: '这家公司有点特别 (6/5)', views: '270', completion: '7.01%', follows: '-', likes: '5', favs: '-', coverClick: '--' },
-    { id: 3, title: '碳化硅火 (6/11)', views: '4800', completion: '4.67%', follows: '22', likes: '63', favs: '23', coverClick: '--' },
-    { id: 4, title: 'eFuse电子保险丝电子在哪 (6/12)', views: '1804', completion: '3.92%', follows: '9', likes: '29', favs: '7', coverClick: '--' },
+    { id: 1, title: 'eFuse为什么不能完全替代保险丝？', date: '2026/6/15', views: '789', completion: '5.25%', follows: '1', likes: '11', comments: '0', shares: '1', favs: '3', inquiry: '--', coverClick: '--' },
+    { id: 2, title: '为什么电源效率永远做不到100%？', date: '2026/6/17', views: '1530', completion: '2.90%', follows: '7', likes: '31', comments: '1', shares: '0', favs: '8', inquiry: '--', coverClick: '--' },
+    { id: 3, title: '6A烧，10A也烧。问题不在安培数', date: '2026/6/20', views: '3502', completion: '4.32%', follows: '5', likes: '43', comments: '6', shares: '3', favs: '17', inquiry: '--', coverClick: '--' },
   ]);
-  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周视频策划非常务实而精准，重点针对“碳化硅”和“eFuse电子保险丝”进行技术拆解，在抖音端引起了良好反响。其中《碳化硅火》抖音播放量高达4800次并直接带来22名新增业内关注；视频号端《这家公司有点特别》和《一个电路里到底放几颗保险丝》也凭借通俗易懂的表述实现极高完播率与强分享，极大提升了品牌技术曝光。');
+  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周深耕电子工程核心科普课题。视频号端，两篇破千播放视频《eFuse为什么不能完全替代保险丝？》和《为什么电源效率永远做不到100%？》表现抢眼，完播率分别达7.88%与6.10%。抖音端《6A烧，10A也烧。问题不在安培数》引起强烈共鸣，播放量直冲3502次，吸流点赞43个，收藏达17次，并转化5名行业内的精准关注，专业产品科普的长期复利正逐步显现。');
 
   const [amosVideos, setAmosVideos] = useState([
-    { id: 1, title: 'MOS管极简选型', date: '2026/6/2', views: '906', hearts: '17', likes: '13', comments: '2', forwards: '11', follows: '3', completion: '4.08%', interaction: '--' },
-    { id: 2, title: '二极管电路门卫', date: '2026/6/5', views: '1287', hearts: '23', likes: '23', comments: '1', forwards: '12', follows: '20', completion: '10.88%', interaction: '--' },
-    { id: 3, title: '二极管不等于晶体管', date: '2026/6/9', views: '729', hearts: '21', likes: '16', comments: '1', forwards: '7', follows: '1', completion: '5.21%', interaction: '--' },
-    { id: 4, title: 'A i服务器、功率半导体全线涨价', date: '2026/6/10', views: '11215', hearts: '53', likes: '90', comments: '25', forwards: '276', follows: '98', completion: '12.88%', interaction: '--' },
+    { id: 1, title: '从1万伏到1付', date: '2026/6/16', views: '2.1w', hearts: '74', likes: '242', comments: '26', forwards: '472', follows: '590', completion: '9.96%', inquiry: '--' },
+    { id: 2, title: '为什么AI服务器一定要用800v', date: '2026/6/17', views: '1.3w', hearts: '46', likes: '121', comments: '18', forwards: '238', follows: '230', completion: '10.70%', inquiry: '--' },
   ]);
   const [amosDouyin, setAmosDouyin] = useState([
-    { id: 1, title: 'MOS管极简选型 (6/2)', views: '2.1w', completion: '2.27%', follows: '109', likes: '500', favs: '445', coverClick: '1 询盘 (C&K开关)' },
-    { id: 2, title: '二极管电路门卫 (6/5)', views: '4692', completion: '3.5%', follows: '11', likes: '68', favs: '52', coverClick: '--' },
-    { id: 3, title: '二极管不等于晶体管 (6/9)', views: '2700', completion: '2.56%', follows: '2', likes: '45', favs: '31', coverClick: '--' },
-    { id: 4, title: 'A i服务器、功率半导体全线涨价 (6/10)', views: '7031', completion: '5.17%', follows: '33', likes: '80', favs: '26', coverClick: '--' },
+    { id: 1, title: '从1万伏到1付', date: '2026/6/16', views: '8.6W', completion: '2.82%', follows: '660', likes: '1172', comments: '127', shares: '298', favs: '734', inquiry: '--', coverClick: '--' },
+    { id: 2, title: '为什么AI服务器一定要用800v', date: '2026/6/17', views: '1.4w', completion: '2.66%', follows: '84', likes: '165', comments: '26', shares: '18', favs: '110', inquiry: '--', coverClick: '--' },
   ]);
-  const [amosSummary, setAmosSummary] = useState('Amos本周多款视频迎来数据爆发。视频号端发布的《A i服务器、功率半导体全线涨价》凭借前沿热点直接斩获1.1W+播放、276次大额转发以及98名新增关注，完播率高达12.88%；抖音端《MOS管极简选型》保持强势长尾流量，破2.1W+播放并获109个新增涨粉，更惊喜引流1个具体的力特-C&K开关询盘，内容带货变现路径已全盘打通。');
+  const [amosSummary, setAmosSummary] = useState('Amos本周多款重量级中重度科普视频数据大爆发，实现双端流量闭环。视频号端《从1万伏到1付》和《为什么AI服务器一定要用800v》分别斩获2.1W+及1.3W+级别的海量播放，分别带来590和230的新增涨粉，转发动作极其强劲，分别达472次及238次！抖音端双视频更是迎来狂飙，尤其是《从1万伏到1付》曝光直逼8.6W+，点赞暴涨至1172个，收藏拉升至734个，单一频带来660涨粉。全团粉丝转化及品牌硬核技术深度种草心智大幅提振。');
 
-  const [weeklySummary, setWeeklySummary] = useState('1. 官网与自然引流：本周官网总浏览量突破993次，新客占比达98.7%。深入挖掘日志发现，主要增长由Google爬虫贡献（618次爬取），刨除后实际自然访客达375人，整体自然引流依然维持高客质水位，转化路径通畅。\n2. 询盘变现稳健攀升：本周高价值询盘人数达到5人（上周3人），呈现出良性攀升形态。最令人振奋的是，Amos抖音发布的《MOS管极简选型》斩获高达2.1W播放 and 109个关注的同时，直接转化引流了1单针对力特-C&K开关规格需求的高质量客户，内容带货变现探索取得关键实效。\n3. 新媒体播放量狂飙：本周新媒体总体涨粉166人！重点是在10日Amos发布的技术风口热点《A i服务器、功率半导体全线涨价》，在视频号引爆播放达11215次，单条获得276次转发、98名关注；各成员科普与情怀内容矩阵相辅相成，漏斗效应明显。\n4. 搜索与GEO建设：传统SEO关键词稳居前列（多个词百度排名第一）。同时正式展开对主流AI搜索引擎（千问、元宝、豆包）的GEO收录建设，目前 “力特代理商”、“Littelfuse上海代理” 在千问和豆包均取得优秀收录和推荐，AI搜索引流初显成效。');
+  const [weeklySummary, setWeeklySummary] = useState('1. 核心流量趋势：本周新媒体总体暴涨粉1573人（上周166人），增幅达847%！主要得益于Amos《从1万伏到1付》及《为什么AI服务器一定要用800v》双端大爆，合计斩获13.4W+播放。官网流量周PV为562（上周993），虽由于正常业务周波动有所平滑，但整体留存与受众咨询行为良好，保持健康粘性。\n2. 精准客户询盘：本周共承接官网等核心业务咨询客询5人（上周3人），保持平稳上升势头。咨询需求逐步向电路保护、器件规格深度国产替代选型靠拢，凸显自然引流受众极高的客户专业壁垒与高质量。\n3. 矩阵表现分析：Elaine、Jessica与Amos三位成员本周新媒体矩阵各单体分析完备且带有动态图表辅助：Elaine精准刺中行业避坑防险选题，双端累计吸流5.6k+；Jessica主攻硬核元器件科普《eFuse不能完全替保险丝》，完播率表现极为喜人；Amos则迎来了数据现象级红利，双料爆款突破超13.4w播放，全团粉丝转化及内容转化通道通畅。\n4. 搜索与GEO布局：SEO百度关键词继续保持稳固的垄断霸屏（多个词稳居百度第一），同时GEO（AI搜索工程推荐）建设扎实推进，核心词在“千问”、“豆包”中持续占有推荐水位，源头切中下一代智能化搜索入口流量。');
 
   const [seo, setSeo] = useState([
     { id: 1, keyword: 'KSS华东代理', rank: '排名第一' },
@@ -181,27 +184,27 @@ export default function App() {
   };
 
   // Video号 and 抖音 management operations for all three people
-  const addElaineVideo = () => setElaineVideos([...elaineVideos, { id: Date.now(), title: '新发布视频', date: '2026/6/15', views: '0', hearts: '0', likes: '0', comments: '0', forwards: '0', follows: '-', completion: '0%', interaction: '--' }]);
+  const addElaineVideo = () => setElaineVideos([...elaineVideos, { id: Date.now(), title: '新发布视频', date: '2026/6/21', views: '0', hearts: '0', likes: '0', comments: '0', forwards: '0', follows: '0', completion: '0%', inquiry: '--' }]);
   const updateElaineVideo = (id: number, field: string, value: string) => setElaineVideos(elaineVideos.map(v => v.id === id ? { ...v, [field]: value } : v));
   const removeElaineVideo = (id: number) => setElaineVideos(elaineVideos.filter(v => v.id !== id));
   
-  const addElaineDouyin = () => setElaineDouyin([...elaineDouyin, { id: Date.now(), title: '新抖音视频', views: '0', completion: '-', follows: '0', likes: '0', favs: '0', coverClick: '--' }]);
+  const addElaineDouyin = () => setElaineDouyin([...elaineDouyin, { id: Date.now(), title: '新抖音视频', date: '2026/6/21', views: '0', completion: '0%', follows: '0', likes: '0', comments: '0', shares: '0', favs: '0', inquiry: '--', coverClick: '--' }]);
   const updateElaineDouyin = (id: number, field: string, value: string) => setElaineDouyin(elaineDouyin.map(v => v.id === id ? { ...v, [field]: value } : v));
   const removeElaineDouyin = (id: number) => setElaineDouyin(elaineDouyin.filter(v => v.id !== id));
-
-  const addJessicaVideo = () => setJessicaVideos([...jessicaVideos, { id: Date.now(), title: '新发布视频', date: '2026/6/15', views: '0', hearts: '0', likes: '0', comments: '0', forwards: '0', follows: '-', completion: '0%', interaction: '--' }]);
+ 
+  const addJessicaVideo = () => setJessicaVideos([...jessicaVideos, { id: Date.now(), title: '新发布视频', date: '2026/6/21', views: '0', hearts: '0', likes: '0', comments: '0', forwards: '0', follows: '0', completion: '0%', inquiry: '--' }]);
   const updateJessicaVideo = (id: number, field: string, value: string) => setJessicaVideos(jessicaVideos.map(v => v.id === id ? { ...v, [field]: value } : v));
   const removeJessicaVideo = (id: number) => setJessicaVideos(jessicaVideos.filter(v => v.id !== id));
-
-  const addJessicaDouyin = () => setJessicaDouyin([...jessicaDouyin, { id: Date.now(), title: '新抖音视频', views: '0', completion: '-', follows: '0', likes: '0', favs: '0', coverClick: '--' }]);
+ 
+  const addJessicaDouyin = () => setJessicaDouyin([...jessicaDouyin, { id: Date.now(), title: '新抖音视频', date: '2026/6/21', views: '0', completion: '0%', follows: '0', likes: '0', comments: '0', shares: '0', favs: '0', inquiry: '--', coverClick: '--' }]);
   const updateJessicaDouyin = (id: number, field: string, value: string) => setJessicaDouyin(jessicaDouyin.map(v => v.id === id ? { ...v, [field]: value } : v));
   const removeJessicaDouyin = (id: number) => setJessicaDouyin(jessicaDouyin.filter(v => v.id !== id));
-
-  const addAmosVideo = () => setAmosVideos([...amosVideos, { id: Date.now(), title: '新发布视频', date: '2026/6/15', views: '0', hearts: '0', likes: '0', comments: '0', forwards: '0', follows: '-', completion: '0%', interaction: '--' }]);
+ 
+  const addAmosVideo = () => setAmosVideos([...amosVideos, { id: Date.now(), title: '新发布视频', date: '2026/6/21', views: '0', hearts: '0', likes: '0', comments: '0', forwards: '0', follows: '0', completion: '0%', inquiry: '--' }]);
   const updateAmosVideo = (id: number, field: string, value: string) => setAmosVideos(amosVideos.map(v => v.id === id ? { ...v, [field]: value } : v));
   const removeAmosVideo = (id: number) => setAmosVideos(amosVideos.filter(v => v.id !== id));
-
-  const addAmosDouyin = () => setAmosDouyin([...amosDouyin, { id: Date.now(), title: '新抖音视频', views: '0', completion: '-', follows: '0', likes: '0', favs: '0', coverClick: '--' }]);
+ 
+  const addAmosDouyin = () => setAmosDouyin([...amosDouyin, { id: Date.now(), title: '新抖音视频', date: '2026/6/21', views: '0', completion: '0%', follows: '0', likes: '0', comments: '0', shares: '0', favs: '0', inquiry: '--', coverClick: '--' }]);
   const updateAmosDouyin = (id: number, field: string, value: string) => setAmosDouyin(amosDouyin.map(v => v.id === id ? { ...v, [field]: value } : v));
   const removeAmosDouyin = (id: number) => setAmosDouyin(amosDouyin.filter(v => v.id !== id));
 
@@ -260,11 +263,20 @@ export default function App() {
                     <Users className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">166 <span className="text-sm font-normal text-slate-500">人</span></div>
-                  <p className="text-xs text-blue-600 flex items-center mt-1">
-                    视频号与抖音涨粉 (上周 178)
-                  </p>
+                <CardContent className="space-y-1">
+                  <div className="flex items-baseline gap-1">
+                    <Input 
+                      value={followersCount}
+                      onChange={(e) => setFollowersCount(e.target.value)}
+                      className="text-2xl font-bold border-none shadow-none focus-visible:ring-0 p-0 h-auto w-24 bg-transparent font-mono"
+                    />
+                    <span className="text-sm font-normal text-slate-500">人</span>
+                  </div>
+                  <Input 
+                    value={followersSub}
+                    onChange={(e) => setFollowersSub(e.target.value)}
+                    className="text-xs text-blue-600 border-none shadow-none focus-visible:ring-0 p-0 h-auto bg-transparent w-full"
+                  />
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200">
@@ -274,11 +286,20 @@ export default function App() {
                     <MousePointerClick className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">993 <span className="text-sm font-normal text-slate-500">次</span></div>
-                  <p className="text-xs text-emerald-600 mt-1">
-                    新客98.7% (谷歌爬取618)
-                  </p>
+                <CardContent className="space-y-1">
+                  <div className="flex items-baseline gap-1">
+                    <Input 
+                      value={trafficCount}
+                      onChange={(e) => setTrafficCount(e.target.value)}
+                      className="text-2xl font-bold border-none shadow-none focus-visible:ring-0 p-0 h-auto w-24 bg-transparent font-mono"
+                    />
+                    <span className="text-sm font-normal text-slate-500">次</span>
+                  </div>
+                  <Input 
+                    value={trafficSub}
+                    onChange={(e) => setTrafficSub(e.target.value)}
+                    className="text-xs text-emerald-600 border-none shadow-none focus-visible:ring-0 p-0 h-auto bg-transparent w-full"
+                  />
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200">
@@ -288,11 +309,20 @@ export default function App() {
                     <Search className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">5 <span className="text-sm font-normal text-slate-500">人</span></div>
-                  <p className="text-xs text-emerald-600 mt-1">
-                    官网 4 人, 抖音推荐 1 人
-                  </p>
+                <CardContent className="space-y-1">
+                  <div className="flex items-baseline gap-1">
+                    <Input 
+                      value={inquiryCount}
+                      onChange={(e) => setInquiryCount(e.target.value)}
+                      className="text-2xl font-bold border-none shadow-none focus-visible:ring-0 p-0 h-auto w-24 bg-transparent font-mono"
+                    />
+                    <span className="text-sm font-normal text-slate-500">人</span>
+                  </div>
+                  <Input 
+                    value={inquirySub}
+                    onChange={(e) => setInquirySub(e.target.value)}
+                    className="text-xs text-emerald-600 border-none shadow-none focus-visible:ring-0 p-0 h-auto bg-transparent w-full"
+                  />
                 </CardContent>
               </Card>
               <Card className="print:shadow-none print:border-slate-200">
@@ -302,11 +332,20 @@ export default function App() {
                     <Eye className="w-4 h-4 text-slate-400" />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">2 <span className="text-sm font-normal text-slate-500">人</span></div>
-                  <p className="text-xs text-amber-600 mt-1">
-                    文章页 1 人, 搜一搜 1 人
-                  </p>
+                <CardContent className="space-y-1">
+                  <div className="flex items-baseline gap-1">
+                    <Input 
+                      value={wechatFollowsCount}
+                      onChange={(e) => setWechatFollowsCount(e.target.value)}
+                      className="text-2xl font-bold border-none shadow-none focus-visible:ring-0 p-0 h-auto w-24 bg-transparent font-mono"
+                    />
+                    <span className="text-sm font-normal text-slate-500">人</span>
+                  </div>
+                  <Input 
+                    value={wechatFollowsSub}
+                    onChange={(e) => setWechatFollowsSub(e.target.value)}
+                    className="text-xs text-amber-600 border-none shadow-none focus-visible:ring-0 p-0 h-auto bg-transparent w-full"
+                  />
                 </CardContent>
               </Card>
             </div>
@@ -376,23 +415,28 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                <div className="xl:col-span-8 space-y-4">
+              <div className="space-y-6">
+                <div className="space-y-4">
                   {/* Elaine - WeChat Channels */}
                   <div className="space-y-2">
                     <div className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
                       <span>视频号平台（支持单元格修改）</span>
                     </div>
                     <div className="border rounded-lg overflow-hidden bg-white shadow-sm overflow-x-auto">
-                      <Table className="min-w-[600px]">
+                      <Table className="min-w-[900px]">
                         <TableHeader className="bg-slate-50">
                           <TableRow>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">发布日期</TableHead>
                             <TableHead className="py-2 text-xs">视频标题</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">发布日期</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">播放量</TableHead>
-                            <TableHead className="py-2 text-xs w-[25%] text-center">红心 / 点赞 / 转发</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">完播率</TableHead>
-                            <TableHead className="py-2 text-xs w-[6%] print:hidden"></TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center font-semibold">播放量</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">红心</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">点赞</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">评论</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">转发</TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">完播率</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center font-bold text-indigo-600">涨粉</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">询盘</TableHead>
+                            <TableHead className="py-2 text-xs w-[5%] print:hidden"></TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -400,16 +444,16 @@ export default function App() {
                             <TableRow key={item.id}>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.title} 
-                                  onChange={(e) => updateElaineVideo(item.id, 'title', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-2 h-7 text-xs bg-transparent"
+                                  value={item.date} 
+                                  onChange={(e) => updateElaineVideo(item.id, 'date', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.date} 
-                                  onChange={(e) => updateElaineVideo(item.id, 'date', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                  value={item.title} 
+                                  onChange={(e) => updateElaineVideo(item.id, 'title', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-2 h-7 text-xs bg-transparent"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
@@ -420,33 +464,51 @@ export default function App() {
                                 />
                               </TableCell>
                               <TableCell className="p-1">
-                                <div className="flex items-center gap-1 justify-center">
-                                  <Input 
-                                    value={item.hearts} 
-                                    placeholder="红"
-                                    onChange={(e) => updateElaineVideo(item.id, 'hearts', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                  <span>/</span>
-                                  <Input 
-                                    value={item.likes} 
-                                    placeholder="赞"
-                                    onChange={(e) => updateElaineVideo(item.id, 'likes', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                  <span>/</span>
-                                  <Input 
-                                    value={item.forwards} 
-                                    placeholder="转"
-                                    onChange={(e) => updateElaineVideo(item.id, 'forwards', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                </div>
+                                <Input 
+                                  value={item.hearts} 
+                                  onChange={(e) => updateElaineVideo(item.id, 'hearts', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.likes} 
+                                  onChange={(e) => updateElaineVideo(item.id, 'likes', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.comments} 
+                                  onChange={(e) => updateElaineVideo(item.id, 'comments', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.forwards} 
+                                  onChange={(e) => updateElaineVideo(item.id, 'forwards', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
                                   value={item.completion} 
                                   onChange={(e) => updateElaineVideo(item.id, 'completion', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.follows} 
+                                  onChange={(e) => updateElaineVideo(item.id, 'follows', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent font-bold font-mono text-indigo-600"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.inquiry || '--'} 
+                                  onChange={(e) => updateElaineVideo(item.id, 'inquiry', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
@@ -459,7 +521,7 @@ export default function App() {
                           ))}
                           {elaineVideos.length === 0 && (
                             <TableRow>
-                              <TableCell colSpan={6} className="text-center text-slate-400 text-xs py-4">无视频号视频，请点击添加</TableCell>
+                              <TableCell colSpan={11} className="text-center text-slate-400 text-xs py-4">无视频号视频，请点击添加</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
@@ -471,22 +533,33 @@ export default function App() {
                   <div className="space-y-2">
                     <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">抖音平台</div>
                     <div className="border rounded-lg overflow-hidden bg-white shadow-sm overflow-x-auto">
-                      <Table className="min-w-[600px]">
+                      <Table className="min-w-[950px]">
                         <TableHeader className="bg-slate-50">
                           <TableRow>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">发布日期</TableHead>
                             <TableHead className="py-2 text-xs">视频标题</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">播放量</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">完播率</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">关注</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">点赞</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">收藏</TableHead>
-                            <TableHead className="py-2 text-xs w-[16%]">封面点击</TableHead>
-                            <TableHead className="py-2 text-xs w-[6%] print:hidden"></TableHead>
+                            <TableHead className="py-2 text-xs w-[9%] text-center font-semibold">播放量</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">点赞</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">评论</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">分享</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">收藏</TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">完播率</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center font-bold text-emerald-600">涨粉</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">询盘</TableHead>
+                            <TableHead className="py-2 text-xs w-[9%] text-center">封面点击</TableHead>
+                            <TableHead className="py-2 text-xs w-[5%] print:hidden"></TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
                           {elaineDouyin.map((item) => (
                             <TableRow key={item.id}>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.date || '--'} 
+                                  onChange={(e) => updateElaineDouyin(item.id, 'date', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
                               <TableCell className="p-1">
                                 <Input 
                                   value={item.title} 
@@ -503,6 +576,34 @@ export default function App() {
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
+                                  value={item.likes} 
+                                  onChange={(e) => updateElaineDouyin(item.id, 'likes', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.comments || '0'} 
+                                  onChange={(e) => updateElaineDouyin(item.id, 'comments', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.shares || '0'} 
+                                  onChange={(e) => updateElaineDouyin(item.id, 'shares', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.favs} 
+                                  onChange={(e) => updateElaineDouyin(item.id, 'favs', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
                                   value={item.completion} 
                                   onChange={(e) => updateElaineDouyin(item.id, 'completion', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
@@ -512,20 +613,13 @@ export default function App() {
                                 <Input 
                                   value={item.follows} 
                                   onChange={(e) => updateElaineDouyin(item.id, 'follows', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent font-bold font-mono text-emerald-600"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.likes} 
-                                  onChange={(e) => updateElaineDouyin(item.id, 'likes', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
-                                />
-                              </TableCell>
-                              <TableCell className="p-1">
-                                <Input 
-                                  value={item.favs} 
-                                  onChange={(e) => updateElaineDouyin(item.id, 'favs', e.target.value)}
+                                  value={item.inquiry || '--'} 
+                                  onChange={(e) => updateElaineDouyin(item.id, 'inquiry', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
@@ -545,7 +639,7 @@ export default function App() {
                           ))}
                           {elaineDouyin.length === 0 && (
                             <TableRow>
-                              <TableCell colSpan={8} className="text-center text-slate-400 text-xs py-4">无抖音视频记录，请点击添加</TableCell>
+                              <TableCell colSpan={12} className="text-center text-slate-400 text-xs py-4">无抖音视频记录，请点击添加</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
@@ -554,28 +648,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Elaine Chart Panel */}
-                <div className="xl:col-span-4 flex flex-col justify-between">
-                  <div className="border border-slate-200 rounded-lg p-4 bg-slate-50/50 h-[380px] flex flex-col">
-                    <div className="text-xs font-bold text-slate-500 mb-2 flex items-center justify-between">
-                      <span className="flex items-center gap-1"><BarChart3 className="w-4 h-4 text-indigo-500" /> Elaine 双边播放对比</span>
-                    </div>
-                    <div className="flex-1 w-full mt-2 min-h-[220px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={getMatchedChartData(elaineVideos, elaineDouyin)} margin={{ top: 10, right: 10, left: -25, bottom: 5 }}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                          <XAxis dataKey="name" tick={{ fontSize: 9, fill: '#64748b' }} interval={0} />
-                          <YAxis tick={{ fontSize: 9, fill: '#64748b' }} />
-                          <Tooltip contentStyle={{ fontSize: 11 }} />
-                          <Legend wrapperStyle={{ fontSize: 9 }} />
-                          <Bar dataKey="视频号播放" fill="#6366f1" name="视频号播放" radius={[3, 3, 0, 0]} />
-                          <Bar dataKey="抖音播放" fill="#10b981" name="抖音播放" radius={[3, 3, 0, 0]} />
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className="text-[10px] text-center text-slate-400 mt-2">（数据自动折合，输入'w'或'万'可自动转换对比）</div>
-                  </div>
-                </div>
               </div>
 
               <Textarea 
@@ -603,21 +675,26 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                <div className="xl:col-span-8 space-y-4">
+              <div className="space-y-6">
+                <div className="space-y-4">
                   {/* Jessica - WeChat Channels */}
                   <div className="space-y-2">
-                    <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">视频号平台（支持双击可修改）</div>
+                    <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">视频号平台（支持单元格修改）</div>
                     <div className="border rounded-lg overflow-hidden bg-white shadow-sm overflow-x-auto">
-                      <Table className="min-w-[600px]">
+                      <Table className="min-w-[900px]">
                         <TableHeader className="bg-slate-50">
                           <TableRow>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">发布日期</TableHead>
                             <TableHead className="py-2 text-xs">视频标题</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">发布日期</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">播放量</TableHead>
-                            <TableHead className="py-2 text-xs w-[25%] text-center">红心 / 点赞 / 转发</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">完播率</TableHead>
-                            <TableHead className="py-2 text-xs w-[6%] print:hidden"></TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center font-semibold">播放量</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">红心</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">点赞</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">评论</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">转发</TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">完播率</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center font-bold text-indigo-600">涨粉</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">询盘</TableHead>
+                            <TableHead className="py-2 text-xs w-[5%] print:hidden"></TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -625,16 +702,16 @@ export default function App() {
                             <TableRow key={item.id}>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.title} 
-                                  onChange={(e) => updateJessicaVideo(item.id, 'title', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-2 h-7 text-xs bg-transparent"
+                                  value={item.date} 
+                                  onChange={(e) => updateJessicaVideo(item.id, 'date', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.date} 
-                                  onChange={(e) => updateJessicaVideo(item.id, 'date', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                  value={item.title} 
+                                  onChange={(e) => updateJessicaVideo(item.id, 'title', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-2 h-7 text-xs bg-transparent"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
@@ -645,33 +722,51 @@ export default function App() {
                                 />
                               </TableCell>
                               <TableCell className="p-1">
-                                <div className="flex items-center gap-1 justify-center">
-                                  <Input 
-                                    value={item.hearts} 
-                                    placeholder="红"
-                                    onChange={(e) => updateJessicaVideo(item.id, 'hearts', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                  <span>/</span>
-                                  <Input 
-                                    value={item.likes} 
-                                    placeholder="赞"
-                                    onChange={(e) => updateJessicaVideo(item.id, 'likes', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                  <span>/</span>
-                                  <Input 
-                                    value={item.forwards} 
-                                    placeholder="转"
-                                    onChange={(e) => updateJessicaVideo(item.id, 'forwards', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                </div>
+                                <Input 
+                                  value={item.hearts} 
+                                  onChange={(e) => updateJessicaVideo(item.id, 'hearts', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.likes} 
+                                  onChange={(e) => updateJessicaVideo(item.id, 'likes', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.comments} 
+                                  onChange={(e) => updateJessicaVideo(item.id, 'comments', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.forwards} 
+                                  onChange={(e) => updateJessicaVideo(item.id, 'forwards', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
                                   value={item.completion} 
                                   onChange={(e) => updateJessicaVideo(item.id, 'completion', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.follows} 
+                                  onChange={(e) => updateJessicaVideo(item.id, 'follows', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent font-bold font-mono text-indigo-600"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.inquiry || '--'} 
+                                  onChange={(e) => updateJessicaVideo(item.id, 'inquiry', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
@@ -684,7 +779,7 @@ export default function App() {
                           ))}
                           {jessicaVideos.length === 0 && (
                             <TableRow>
-                              <TableCell colSpan={6} className="text-center text-slate-400 text-xs py-4">无视频号视频，请点击添加</TableCell>
+                              <TableCell colSpan={11} className="text-center text-slate-400 text-xs py-4">无视频号视频，请点击添加</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
@@ -696,22 +791,33 @@ export default function App() {
                   <div className="space-y-2">
                     <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">抖音平台</div>
                     <div className="border rounded-lg overflow-hidden bg-white shadow-sm overflow-x-auto">
-                      <Table className="min-w-[600px]">
+                      <Table className="min-w-[950px]">
                         <TableHeader className="bg-slate-50">
                           <TableRow>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">发布日期</TableHead>
                             <TableHead className="py-2 text-xs">视频标题</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">播放量</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">完播率</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">关注</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">点赞</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">收藏</TableHead>
-                            <TableHead className="py-2 text-xs w-[16%]">封面点击</TableHead>
-                            <TableHead className="py-2 text-xs w-[6%] print:hidden"></TableHead>
+                            <TableHead className="py-2 text-xs w-[9%] text-center font-semibold">播放量</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">点赞</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">评论</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">分享</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">收藏</TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">完播率</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center font-bold text-emerald-600">涨粉</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">询盘</TableHead>
+                            <TableHead className="py-2 text-xs w-[9%] text-center">封面点击</TableHead>
+                            <TableHead className="py-2 text-xs w-[5%] print:hidden"></TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
                           {jessicaDouyin.map((item) => (
                             <TableRow key={item.id}>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.date || '--'} 
+                                  onChange={(e) => updateJessicaDouyin(item.id, 'date', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
                               <TableCell className="p-1">
                                 <Input 
                                   value={item.title} 
@@ -728,6 +834,34 @@ export default function App() {
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
+                                  value={item.likes} 
+                                  onChange={(e) => updateJessicaDouyin(item.id, 'likes', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.comments || '0'} 
+                                  onChange={(e) => updateJessicaDouyin(item.id, 'comments', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.shares || '0'} 
+                                  onChange={(e) => updateJessicaDouyin(item.id, 'shares', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.favs} 
+                                  onChange={(e) => updateJessicaDouyin(item.id, 'favs', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
                                   value={item.completion} 
                                   onChange={(e) => updateJessicaDouyin(item.id, 'completion', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
@@ -737,20 +871,13 @@ export default function App() {
                                 <Input 
                                   value={item.follows} 
                                   onChange={(e) => updateJessicaDouyin(item.id, 'follows', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent font-bold font-mono text-emerald-600"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.likes} 
-                                  onChange={(e) => updateJessicaDouyin(item.id, 'likes', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
-                                />
-                              </TableCell>
-                              <TableCell className="p-1">
-                                <Input 
-                                  value={item.favs} 
-                                  onChange={(e) => updateJessicaDouyin(item.id, 'favs', e.target.value)}
+                                  value={item.inquiry || '--'} 
+                                  onChange={(e) => updateJessicaDouyin(item.id, 'inquiry', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
@@ -770,7 +897,7 @@ export default function App() {
                           ))}
                           {jessicaDouyin.length === 0 && (
                             <TableRow>
-                              <TableCell colSpan={8} className="text-center text-slate-400 text-xs py-4">无抖音视频记录，请点击添加</TableCell>
+                              <TableCell colSpan={12} className="text-center text-slate-400 text-xs py-4">无抖音视频记录，请点击添加</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
@@ -779,28 +906,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Jessica Chart Panel */}
-                <div className="xl:col-span-4 flex flex-col justify-between">
-                  <div className="border border-slate-200 rounded-lg p-4 bg-slate-50/50 h-[380px] flex flex-col">
-                    <div className="text-xs font-bold text-slate-500 mb-2 flex items-center justify-between">
-                      <span className="flex items-center gap-1"><BarChart3 className="w-4 h-4 text-emerald-500" /> Jessica 双边播放对比</span>
-                    </div>
-                    <div className="flex-1 w-full mt-2 min-h-[220px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={getMatchedChartData(jessicaVideos, jessicaDouyin)} margin={{ top: 10, right: 10, left: -25, bottom: 5 }}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                          <XAxis dataKey="name" tick={{ fontSize: 9, fill: '#64748b' }} interval={0} />
-                          <YAxis tick={{ fontSize: 9, fill: '#64748b' }} />
-                          <Tooltip contentStyle={{ fontSize: 11 }} />
-                          <Legend wrapperStyle={{ fontSize: 9 }} />
-                          <Bar dataKey="视频号播放" fill="#10b981" name="视频号" radius={[3, 3, 0, 0]} />
-                          <Bar dataKey="抖音播放" fill="#3b82f6" name="抖音" radius={[3, 3, 0, 0]} />
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className="text-[10px] text-center text-slate-400 mt-2">（数据自动折合，单元格修改后图表联动刷新）</div>
-                  </div>
-                </div>
               </div>
 
               <Textarea 
@@ -828,21 +933,26 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                <div className="xl:col-span-8 space-y-4">
+              <div className="space-y-6">
+                <div className="space-y-4">
                   {/* Amos - WeChat Channels */}
                   <div className="space-y-2">
-                    <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">视频号平台（支持双击可修改）</div>
+                    <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">视频号平台（支持单元格修改）</div>
                     <div className="border rounded-lg overflow-hidden bg-white shadow-sm overflow-x-auto">
-                      <Table className="min-w-[600px]">
+                      <Table className="min-w-[900px]">
                         <TableHeader className="bg-slate-50">
                           <TableRow>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">发布日期</TableHead>
                             <TableHead className="py-2 text-xs">视频标题</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">发布日期</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">播放量</TableHead>
-                            <TableHead className="py-2 text-xs w-[25%] text-center">红心 / 点赞 / 转发</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">完播率</TableHead>
-                            <TableHead className="py-2 text-xs w-[6%] print:hidden"></TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center font-semibold">播放量</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">红心</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">点赞</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">评论</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">转发</TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">完播率</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center font-bold text-indigo-600">涨粉</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">询盘</TableHead>
+                            <TableHead className="py-2 text-xs w-[5%] print:hidden"></TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -850,16 +960,16 @@ export default function App() {
                             <TableRow key={item.id}>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.title} 
-                                  onChange={(e) => updateAmosVideo(item.id, 'title', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-2 h-7 text-xs bg-transparent"
+                                  value={item.date} 
+                                  onChange={(e) => updateAmosVideo(item.id, 'date', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.date} 
-                                  onChange={(e) => updateAmosVideo(item.id, 'date', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                  value={item.title} 
+                                  onChange={(e) => updateAmosVideo(item.id, 'title', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-2 h-7 text-xs bg-transparent"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
@@ -870,33 +980,51 @@ export default function App() {
                                 />
                               </TableCell>
                               <TableCell className="p-1">
-                                <div className="flex items-center gap-1 justify-center">
-                                  <Input 
-                                    value={item.hearts} 
-                                    placeholder="红"
-                                    onChange={(e) => updateAmosVideo(item.id, 'hearts', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                  <span>/</span>
-                                  <Input 
-                                    value={item.likes} 
-                                    placeholder="赞"
-                                    onChange={(e) => updateAmosVideo(item.id, 'likes', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                  <span>/</span>
-                                  <Input 
-                                    value={item.forwards} 
-                                    placeholder="转"
-                                    onChange={(e) => updateAmosVideo(item.id, 'forwards', e.target.value)}
-                                    className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs w-10 text-center bg-transparent"
-                                  />
-                                </div>
+                                <Input 
+                                  value={item.hearts} 
+                                  onChange={(e) => updateAmosVideo(item.id, 'hearts', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.likes} 
+                                  onChange={(e) => updateAmosVideo(item.id, 'likes', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.comments} 
+                                  onChange={(e) => updateAmosVideo(item.id, 'comments', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.forwards} 
+                                  onChange={(e) => updateAmosVideo(item.id, 'forwards', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
                                   value={item.completion} 
                                   onChange={(e) => updateAmosVideo(item.id, 'completion', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.follows} 
+                                  onChange={(e) => updateAmosVideo(item.id, 'follows', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent font-bold font-mono text-indigo-600"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.inquiry || '--'} 
+                                  onChange={(e) => updateAmosVideo(item.id, 'inquiry', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
@@ -909,7 +1037,7 @@ export default function App() {
                           ))}
                           {amosVideos.length === 0 && (
                             <TableRow>
-                              <TableCell colSpan={6} className="text-center text-slate-400 text-xs py-4">无视频号视频，请点击添加</TableCell>
+                              <TableCell colSpan={11} className="text-center text-slate-400 text-xs py-4">无视频号视频，请点击添加</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
@@ -921,22 +1049,33 @@ export default function App() {
                   <div className="space-y-2">
                     <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">抖音平台</div>
                     <div className="border rounded-lg overflow-hidden bg-white shadow-sm overflow-x-auto">
-                      <Table className="min-w-[600px]">
+                      <Table className="min-w-[950px]">
                         <TableHeader className="bg-slate-50">
                           <TableRow>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">发布日期</TableHead>
                             <TableHead className="py-2 text-xs">视频标题</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">播放量</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">完播率</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">关注</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">点赞</TableHead>
-                            <TableHead className="py-2 text-xs w-[12%] text-center">收藏</TableHead>
-                            <TableHead className="py-2 text-xs w-[16%]">封面点击</TableHead>
-                            <TableHead className="py-2 text-xs w-[6%] print:hidden"></TableHead>
+                            <TableHead className="py-2 text-xs w-[9%] text-center font-semibold">播放量</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">点赞</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">评论</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">分享</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">收藏</TableHead>
+                            <TableHead className="py-2 text-xs w-[10%] text-center">完播率</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center font-bold text-emerald-600">涨粉</TableHead>
+                            <TableHead className="py-2 text-xs w-[8%] text-center">询盘</TableHead>
+                            <TableHead className="py-2 text-xs w-[9%] text-center">封面点击</TableHead>
+                            <TableHead className="py-2 text-xs w-[5%] print:hidden"></TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
                           {amosDouyin.map((item) => (
                             <TableRow key={item.id}>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.date || '--'} 
+                                  onChange={(e) => updateAmosDouyin(item.id, 'date', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
                               <TableCell className="p-1">
                                 <Input 
                                   value={item.title} 
@@ -953,6 +1092,34 @@ export default function App() {
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
+                                  value={item.likes} 
+                                  onChange={(e) => updateAmosDouyin(item.id, 'likes', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.comments || '0'} 
+                                  onChange={(e) => updateAmosDouyin(item.id, 'comments', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.shares || '0'} 
+                                  onChange={(e) => updateAmosDouyin(item.id, 'shares', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
+                                  value={item.favs} 
+                                  onChange={(e) => updateAmosDouyin(item.id, 'favs', e.target.value)}
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                />
+                              </TableCell>
+                              <TableCell className="p-1">
+                                <Input 
                                   value={item.completion} 
                                   onChange={(e) => updateAmosDouyin(item.id, 'completion', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
@@ -962,20 +1129,13 @@ export default function App() {
                                 <Input 
                                   value={item.follows} 
                                   onChange={(e) => updateAmosDouyin(item.id, 'follows', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
+                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent font-bold font-mono text-emerald-600"
                                 />
                               </TableCell>
                               <TableCell className="p-1">
                                 <Input 
-                                  value={item.likes} 
-                                  onChange={(e) => updateAmosDouyin(item.id, 'likes', e.target.value)}
-                                  className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
-                                />
-                              </TableCell>
-                              <TableCell className="p-1">
-                                <Input 
-                                  value={item.favs} 
-                                  onChange={(e) => updateAmosDouyin(item.id, 'favs', e.target.value)}
+                                  value={item.inquiry || '--'} 
+                                  onChange={(e) => updateAmosDouyin(item.id, 'inquiry', e.target.value)}
                                   className="border-transparent hover:border-slate-200 focus:border-slate-300 focus-visible:ring-0 px-1 h-7 text-xs text-center bg-transparent"
                                 />
                               </TableCell>
@@ -995,7 +1155,7 @@ export default function App() {
                           ))}
                           {amosDouyin.length === 0 && (
                             <TableRow>
-                              <TableCell colSpan={8} className="text-center text-slate-400 text-xs py-4">无抖音视频记录，请点击添加</TableCell>
+                              <TableCell colSpan={12} className="text-center text-slate-400 text-xs py-4">无抖音视频记录，请点击添加</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
@@ -1004,28 +1164,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Amos Chart Panel */}
-                <div className="xl:col-span-4 flex flex-col justify-between">
-                  <div className="border border-slate-200 rounded-lg p-4 bg-slate-50/50 h-[380px] flex flex-col">
-                    <div className="text-xs font-bold text-slate-500 mb-2 flex items-center justify-between">
-                      <span className="flex items-center gap-1"><BarChart3 className="w-4 h-4 text-orange-500" /> Amos 双边播放对比</span>
-                    </div>
-                    <div className="flex-1 w-full mt-2 min-h-[220px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={getMatchedChartData(amosVideos, amosDouyin)} margin={{ top: 10, right: 10, left: -25, bottom: 5 }}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                          <XAxis dataKey="name" tick={{ fontSize: 9, fill: '#64748b' }} interval={0} />
-                          <YAxis tick={{ fontSize: 9, fill: '#64748b' }} />
-                          <Tooltip contentStyle={{ fontSize: 11 }} />
-                          <Legend wrapperStyle={{ fontSize: 9 }} />
-                          <Bar dataKey="视频号播放" fill="#f97316" name="视频号" radius={[3, 3, 0, 0]} />
-                          <Bar dataKey="抖音播放" fill="#3b82f6" name="抖音" radius={[3, 3, 0, 0]} />
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className="text-[10px] text-center text-slate-400 mt-2">（数据自动折合，单元格修改后图表联动刷新）</div>
-                  </div>
-                </div>
               </div>
 
               <Textarea 
