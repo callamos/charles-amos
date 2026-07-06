@@ -8,13 +8,13 @@ import { Plus, Trash2, TrendingUp, Users, Eye, MousePointerClick, Activity, Play
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const websiteTrafficData = [
-  { name: '06-15', pv: 101 },
-  { name: '06-16', pv: 140 },
-  { name: '06-17', pv: 110 },
-  { name: '06-18', pv: 99 },
-  { name: '06-19', pv: 31 },
-  { name: '06-20', pv: 25 },
-  { name: '06-21', pv: 56 },
+  { name: '06-29', pv: 134 },
+  { name: '06-30', pv: 109 },
+  { name: '07-01', pv: 74 },
+  { name: '07-02', pv: 89 },
+  { name: '07-03', pv: 119 },
+  { name: '07-04', pv: 57 },
+  { name: '07-05', pv: 15 },
 ];
 
 const wechatSourceData = [
@@ -31,7 +31,7 @@ export default function App() {
   // State for editable fields
   const [reportTitle, setReportTitle] = useState('工作周报');
   const [reporterName, setReporterName] = useState('Amos');
-  const [reportDate, setReportDate] = useState('2026-06-15到2026-06-21');
+  const [reportDate, setReportDate] = useState('2026-06-29到2026-07-05');
   
   const [section1Title, setSection1Title] = useState('一、核心数据与流量趋势');
   const [section2Title, setSection2Title] = useState('二、新媒体矩阵个人数据分析');
@@ -40,51 +40,41 @@ export default function App() {
   const [section6Title, setSection6Title] = useState('五、周报总结');
 
   // Core metrics states
-  const [followersCount, setFollowersCount] = useState('1573');
-  const [followersSub, setFollowersSub] = useState('视频号与抖音涨粉 (上周 166)');
-  const [trafficCount, setTrafficCount] = useState('562');
-  const [trafficSub, setTrafficSub] = useState('新客98.7% (上周 993)');
+  const [followersCount, setFollowersCount] = useState('32');
+  const [followersSub, setFollowersSub] = useState('视频号与抖音涨粉 (上周 1573)');
+  const [trafficCount, setTrafficCount] = useState('597');
+  const [trafficSub, setTrafficSub] = useState('比上周 562 增长 6.2%');
   const [inquiryCount, setInquiryCount] = useState('5');
-  const [inquirySub, setInquirySub] = useState('官网 4 人, 抖音推荐 1 人 (上周 3)');
-  const [wechatFollowsCount, setWechatFollowsCount] = useState('1');
-  const [wechatFollowsSub, setWechatFollowsSub] = useState('文章页 1 人 (上周 2)');
+  const [inquirySub, setInquirySub] = useState('官方客服接待 3 人 (上周 5)');
+  const [wechatFollowsCount, setWechatFollowsCount] = useState('147');
+  const [wechatFollowsSub, setWechatFollowsSub] = useState('展会关注 139 人 (上周 1)');
 
   // Media Matrix State
   const [elaineVideos, setElaineVideos] = useState([
-    { id: 1, title: '30年一件事，电路保护更安心', date: '2026/6/17', views: '3923', hearts: '102', likes: '113', comments: '22', forwards: '37', follows: '11', completion: '5.81%', inquiry: '--' },
-    { id: 2, title: '供应商报价便宜一半，为什么我反而更担心', date: '2026/6/20', views: '1118', hearts: '46', likes: '37', comments: '7', forwards: '6', follows: '3', completion: '6.61%', inquiry: '--' },
-    { id: 3, title: '老板要降本，工程师却不敢签字?风险量化才是关键', date: '2026/6/21', views: '180', hearts: '22', likes: '13', comments: '1', forwards: '2', follows: '1', completion: '4.19%', inquiry: '--' },
+    { id: 1, title: '慕尼黑电子展W5馆313展位，上海查尔斯等您来聊！', date: '2026/6/30', views: '1622', hearts: '52', likes: '61', comments: '4', forwards: '11', follows: '4', completion: '15.84%', inquiry: '--' },
   ]);
   const [elaineDouyin, setElaineDouyin] = useState([
-    { id: 1, title: '30年一件事，电路保护更安心', date: '2026/6/17', views: '--', completion: '1.12%', follows: '9', likes: '15', comments: '0', shares: '0', favs: '3', inquiry: '--', coverClick: '--' },
-    { id: 2, title: '供应商报价便宜一半，为什么我反而更担心', date: '2026/6/20', views: '--', completion: '1.64%', follows: '8', likes: '15', comments: '3', shares: '0', favs: '5', inquiry: '--', coverClick: '--' },
-    { id: 3, title: '老板要降本，工程师却不敢签字?风险量化才是关键', date: '2026/6/21', views: '--', completion: '0.78%', follows: '2', likes: '5', comments: '0', shares: '4', favs: '0', inquiry: '--', coverClick: '--' },
+    { id: 1, title: '慕尼黑电子展W5馆313展位，上海查尔斯等您来聊！', date: '2026/6/30', views: '--', completion: '--', follows: '--', likes: '10', comments: '3', shares: '0', favs: '5', inquiry: '--', coverClick: '--' },
   ]);
-  const [elaineSummary, setElaineSummary] = useState('Elaine本周共发布3条视频。视频号端《30年一件事，电路保护更安心》表现最出色，播放量达3923，点赞113并带来11个新增关注。抖音端在点赞 and 粉丝转化方面稳健，两篇主推视频均收获15个赞，累计带来19名新增粉丝。双平台内容均围绕电路保护、采购避坑与量化风控等高专业度选题，切中受众痛点。');
+  const [elaineSummary, setElaineSummary] = useState('Elaine本周发布1条上海慕尼黑电子展预热推广视频《慕尼黑电子展W5馆313展位，上海查尔斯等您来聊！》，视频号端表现极其亮眼，播放量达1622次，收获61个点赞并带来4名新增粉丝，完播率更是高达15.84%，表明展会和地域性硬核推广具有极强的精准受众吸引力；抖音端表现稳健，获得10次点赞、3个评论及5次收藏。');
 
   const [jessicaVideos, setJessicaVideos] = useState([
-    { id: 1, title: 'eFuse为什么不能完全替代保险丝？', date: '2026/6/15', views: '1010', hearts: '22', likes: '20', comments: '5', forwards: '3', follows: '2', completion: '7.88%', inquiry: '--' },
-    { id: 2, title: '为什么电源效率永远做不到100%？', date: '2026/6/17', views: '1002', hearts: '38', likes: '32', comments: '4', forwards: '4', follows: '4', completion: '6.10%', inquiry: '--' },
-    { id: 3, title: '6A烧，10A也烧。问题不在安培数', date: '2026/6/20', views: '710', hearts: '22', likes: '20', comments: '10', forwards: '5', follows: '3', completion: '14.14%', inquiry: '--' },
+    { id: 1, title: '为什么汽车电子越来越喜欢PPTC', date: '2026/6/30', views: '700', hearts: '21', likes: '17', comments: '3', forwards: '4', follows: '2', completion: '6.40%', inquiry: '--' },
   ]);
   const [jessicaDouyin, setJessicaDouyin] = useState([
-    { id: 1, title: 'eFuse为什么不能完全替代保险丝？', date: '2026/6/15', views: '789', completion: '5.25%', follows: '1', likes: '11', comments: '0', shares: '1', favs: '3', inquiry: '--', coverClick: '--' },
-    { id: 2, title: '为什么电源效率永远做不到100%？', date: '2026/6/17', views: '1530', completion: '2.90%', follows: '7', likes: '31', comments: '1', shares: '0', favs: '8', inquiry: '--', coverClick: '--' },
-    { id: 3, title: '6A烧，10A也烧。问题不在安培数', date: '2026/6/20', views: '3502', completion: '4.32%', follows: '5', likes: '43', comments: '6', shares: '3', favs: '17', inquiry: '--', coverClick: '--' },
+    { id: 1, title: '为什么汽车电子越来越喜欢PPTC', date: '2026/6/30', views: '2641', completion: '3.68%', follows: '4', likes: '33', comments: '2', shares: '3', favs: '15', inquiry: '--', coverClick: '--' },
   ]);
-  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周深耕电子工程核心科普课题。视频号端，两篇破千播放视频《eFuse为什么不能完全替代保险丝？》和《为什么电源效率永远做不到100%？》表现抢眼，完播率分别达7.88%与6.10%。抖音端《6A烧，10A也烧。问题不在安培数》引起强烈共鸣，播放量直冲3502次，吸流点赞43个，收藏达17次，并转化5名行业内的精准关注，专业产品科普的长期复利正逐步显现。');
+  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周发布重磅科普视频《为什么汽车电子越来越喜欢PPTC》。视频号端收获700次播放、17个点赞与21个红心推荐，转化2名精准新粉，完播率达6.40%；抖音端爆发力更强，播放量达2641次，点赞33个，收藏量达15次，极佳的收藏比例验证了硬核元器件防险保护内容的长期实用价值，并带来4名行业内新增粉丝。');
 
   const [amosVideos, setAmosVideos] = useState([
-    { id: 1, title: '从1万伏到1付', date: '2026/6/16', views: '2.1w', hearts: '74', likes: '242', comments: '26', forwards: '472', follows: '590', completion: '9.96%', inquiry: '--' },
-    { id: 2, title: '为什么AI服务器一定要用800v', date: '2026/6/17', views: '1.3w', hearts: '46', likes: '121', comments: '18', forwards: '238', follows: '230', completion: '10.70%', inquiry: '--' },
+    { id: 1, title: '力特方案-连续血糖检测仪', date: '2026/6/30', views: '861', hearts: '22', likes: '17', comments: '4', forwards: '13', follows: '3', completion: '3.48%', inquiry: '--' },
   ]);
   const [amosDouyin, setAmosDouyin] = useState([
-    { id: 1, title: '从1万伏到1付', date: '2026/6/16', views: '8.6W', completion: '2.82%', follows: '660', likes: '1172', comments: '127', shares: '298', favs: '734', inquiry: '--', coverClick: '--' },
-    { id: 2, title: '为什么AI服务器一定要用800v', date: '2026/6/17', views: '1.4w', completion: '2.66%', follows: '84', likes: '165', comments: '26', shares: '18', favs: '110', inquiry: '--', coverClick: '--' },
+    { id: 1, title: '力特方案-连续血糖检测仪', date: '2026/6/30', views: '1.3W', completion: '2.05%', follows: '19', likes: '119', comments: '33', shares: '15', favs: '53', inquiry: '--', coverClick: '--' },
   ]);
-  const [amosSummary, setAmosSummary] = useState('Amos本周多款重量级中重度科普视频数据大爆发，实现双端流量闭环。视频号端《从1万伏到1付》和《为什么AI服务器一定要用800v》分别斩获2.1W+及1.3W+级别的海量播放，分别带来590和230的新增涨粉，转发动作极其强劲，分别达472次及238次！抖音端双视频更是迎来狂飙，尤其是《从1万伏到1付》曝光直逼8.6W+，点赞暴涨至1172个，收藏拉升至734个，单一频带来660涨粉。全团粉丝转化及品牌硬核技术深度种草心智大幅提振。');
+  const [amosSummary, setAmosSummary] = useState('Amos本周聚焦医疗电子细分方案发布《力特方案-连续血糖检测仪》。视频号端稳定获861播放，点赞17，转发达13次，转化3个新粉；抖音端更是迎来重大流量收获，斩获1.3W+级别的曝光量，点赞数达119个，评论33次，收藏53次并带来15次分享，单一视频强势斩获19个行业高意向新增涨粉，充分佐证了CGM连续血糖检测仪这一医疗科技前沿高热度话题的科普溢出效应。');
 
-  const [weeklySummary, setWeeklySummary] = useState('1. 核心流量趋势：本周新媒体总体暴涨粉1573人（上周166人），增幅达847%！主要得益于Amos《从1万伏到1付》及《为什么AI服务器一定要用800v》双端大爆，合计斩获13.4W+播放。官网流量周PV为562（上周993），虽由于正常业务周波动有所平滑，但整体留存与受众咨询行为良好，保持健康粘性。\n2. 精准客户询盘：本周共承接官网等核心业务咨询客询5人（上周3人），保持平稳上升势头。咨询需求逐步向电路保护、器件规格深度国产替代选型靠拢，凸显自然引流受众极高的客户专业壁垒与高质量。\n3. 矩阵表现分析：Elaine、Jessica与Amos三位成员本周新媒体矩阵各单体分析完备且带有动态图表辅助：Elaine精准刺中行业避坑防险选题，双端累计吸流5.6k+；Jessica主攻硬核元器件科普《eFuse不能完全替保险丝》，完播率表现极为喜人；Amos则迎来了数据现象级红利，双料爆款突破超13.4w播放，全团粉丝转化及内容转化通道通畅。\n4. 搜索与GEO布局：SEO百度关键词继续保持稳固的垄断霸屏（多个词稳居百度第一），同时GEO（AI搜索工程推荐）建设扎实推进，核心词在“千问”、“豆包”中持续占有推荐水位，源头切中下一代智能化搜索入口流量。');
+  const [weeklySummary, setWeeklySummary] = useState('1. 核心流量趋势：本周新媒体总体涨粉32人（上周1573人，因上周爆款大爆发基数较高），回归常态化健康增长。官网流量周PV为597（上周562），实现6.2%的环比稳健上扬。公众号关注新增达147人，线下展会（139人关注）成为极强的线下蓄水池，形成了完善的展会私域转化引流闭环。\n2. 客户咨询：本周共承接官网等核心客询5人，由官方客服成功接待3人，咨询意向继续向高技术门槛、国产替代选型（如PPTC及医疗级电路保护）靠拢，凸显了我们内容输出的极高专业壁垒与询盘含金量。\n3. 矩阵表现分析：Elaine以慕尼黑上海电子展热点预热破冰，视频号创下15.84%的完播率奇迹，展现了品牌在垂直大展中的天然关注力；Jessica深耕汽车电子PPTC保护，抖音端收藏高达15次、斩获2.6k播放；Amos主攻硬核医疗电子CGM力特方案，抖音单端突破1.3W播放，带来19个新增精准粉丝。全团专业选题、精细运营的联动效应明显。\n4. 搜索与GEO布局：SEO百度关键词继续保持多词（如KSS、力特代理等）垄断排名第一和第二的位置；同时在GEO新AI搜索阵地表现出色，千问、豆包等AI引擎在“力特代理商”等核心关键字上均有持续的品牌推荐与收录，保持领先的智能化入口渗透率。');
 
   const [seo, setSeo] = useState([
     { id: 1, keyword: 'KSS华东代理', rank: '排名第一' },
