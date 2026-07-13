@@ -8,30 +8,30 @@ import { Plus, Trash2, TrendingUp, Users, Eye, MousePointerClick, Activity, Play
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const websiteTrafficData = [
-  { name: '06-29', pv: 134 },
-  { name: '06-30', pv: 109 },
-  { name: '07-01', pv: 74 },
-  { name: '07-02', pv: 89 },
-  { name: '07-03', pv: 119 },
-  { name: '07-04', pv: 57 },
-  { name: '07-05', pv: 15 },
+  { name: '07-06', pv: 135 },
+  { name: '07-07', pv: 106 },
+  { name: '07-08', pv: 138 },
+  { name: '07-09', pv: 205 },
+  { name: '07-10', pv: 174 },
+  { name: '07-11', pv: 121 },
+  { name: '07-12', pv: 199 },
 ];
 
 const wechatSourceData = [
-  { name: '搜一搜', value: 34.9 },
-  { name: '朋友圈', value: 26.9 },
-  { name: '服务号消息', value: 25.9 },
-  { name: '服务号主页', value: 9.2 },
-  { name: '聊天会话', value: 3.1 },
-  { name: '其它', value: 2.8 },
-  { name: '推荐', value: 0.7 },
+  { name: '搜一搜', value: 12.2 },
+  { name: '朋友圈', value: 65.9 },
+  { name: '服务号消息', value: 5.7 },
+  { name: '服务号主页', value: 5.1 },
+  { name: '聊天会话', value: 5.1 },
+  { name: '其它', value: 3.7 },
+  { name: '推荐', value: 7.8 },
 ];
 
 export default function App() {
   // State for editable fields
   const [reportTitle, setReportTitle] = useState('工作周报');
   const [reporterName, setReporterName] = useState('Amos');
-  const [reportDate, setReportDate] = useState('2026-06-29到2026-07-05');
+  const [reportDate, setReportDate] = useState('2026-07-06到2026-07-12');
   
   const [section1Title, setSection1Title] = useState('一、核心数据与流量趋势');
   const [section2Title, setSection2Title] = useState('二、新媒体矩阵个人数据分析');
@@ -40,41 +40,39 @@ export default function App() {
   const [section6Title, setSection6Title] = useState('五、周报总结');
 
   // Core metrics states
-  const [followersCount, setFollowersCount] = useState('32');
-  const [followersSub, setFollowersSub] = useState('视频号与抖音涨粉 (上周 1573)');
-  const [trafficCount, setTrafficCount] = useState('597');
-  const [trafficSub, setTrafficSub] = useState('比上周 562 增长 6.2%');
-  const [inquiryCount, setInquiryCount] = useState('5');
-  const [inquirySub, setInquirySub] = useState('官方客服接待 3 人 (上周 5)');
-  const [wechatFollowsCount, setWechatFollowsCount] = useState('147');
-  const [wechatFollowsSub, setWechatFollowsSub] = useState('展会关注 139 人 (上周 1)');
+  const [followersCount, setFollowersCount] = useState('6');
+  const [followersSub, setFollowersSub] = useState('视频号与抖音涨粉 (上周 32)');
+  const [trafficCount, setTrafficCount] = useState('1078');
+  const [trafficSub, setTrafficSub] = useState('比上周 597 增长 80.6%');
+  const [inquiryCount, setInquiryCount] = useState('3');
+  const [inquirySub, setInquirySub] = useState('客户直接咨询 3 人 (上周 5)');
+  const [wechatFollowsCount, setWechatFollowsCount] = useState('5');
+  const [wechatFollowsSub, setWechatFollowsSub] = useState('上周 147');
 
   // Media Matrix State
-  const [elaineVideos, setElaineVideos] = useState([
-    { id: 1, title: '慕尼黑电子展W5馆313展位，上海查尔斯等您来聊！', date: '2026/6/30', views: '1622', hearts: '52', likes: '61', comments: '4', forwards: '11', follows: '4', completion: '15.84%', inquiry: '--' },
-  ]);
-  const [elaineDouyin, setElaineDouyin] = useState([
-    { id: 1, title: '慕尼黑电子展W5馆313展位，上海查尔斯等您来聊！', date: '2026/6/30', views: '--', completion: '--', follows: '--', likes: '10', comments: '3', shares: '0', favs: '5', inquiry: '--', coverClick: '--' },
-  ]);
-  const [elaineSummary, setElaineSummary] = useState('Elaine本周发布1条上海慕尼黑电子展预热推广视频《慕尼黑电子展W5馆313展位，上海查尔斯等您来聊！》，视频号端表现极其亮眼，播放量达1622次，收获61个点赞并带来4名新增粉丝，完播率更是高达15.84%，表明展会和地域性硬核推广具有极强的精准受众吸引力；抖音端表现稳健，获得10次点赞、3个评论及5次收藏。');
+  const [elaineVideos, setElaineVideos] = useState([]);
+  const [elaineDouyin, setElaineDouyin] = useState([]);
+  const [elaineSummary, setElaineSummary] = useState('Elaine本周无新发布视频，本周主要聚焦于慕尼黑展会后的客户跟进与物料归档整理，保障线下业务转化链路的畅通。');
 
   const [jessicaVideos, setJessicaVideos] = useState([
-    { id: 1, title: '为什么汽车电子越来越喜欢PPTC', date: '2026/6/30', views: '700', hearts: '21', likes: '17', comments: '3', forwards: '4', follows: '2', completion: '6.40%', inquiry: '--' },
+    { id: 1, title: '新能源电网vs传统电网', date: '2026/7/7', views: '710', hearts: '30', likes: '22', comments: '7', forwards: '8', follows: '3', completion: '4.76%', inquiry: '--' },
+    { id: 2, title: 'SST为什么需要更强的电路保护', date: '2026/7/10', views: '770', hearts: '24', likes: '18', comments: '1', forwards: '4', follows: '2', completion: '10.75%', inquiry: '--' },
   ]);
   const [jessicaDouyin, setJessicaDouyin] = useState([
-    { id: 1, title: '为什么汽车电子越来越喜欢PPTC', date: '2026/6/30', views: '2641', completion: '3.68%', follows: '4', likes: '33', comments: '2', shares: '3', favs: '15', inquiry: '--', coverClick: '--' },
+    { id: 1, title: '新能源电网vs传统电网', date: '2026/7/7', views: '3300', completion: '2.70%', follows: '--', likes: '57', comments: '4', shares: '1', favs: '28', inquiry: '--', coverClick: '--' },
+    { id: 2, title: 'SST为什么需要更强的电路保护', date: '2026/7/10', views: '1100', completion: '2.55%', follows: '--', likes: '12', comments: '0', shares: '2', favs: '11', inquiry: '--', coverClick: '--' },
   ]);
-  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周发布重磅科普视频《为什么汽车电子越来越喜欢PPTC》。视频号端收获700次播放、17个点赞与21个红心推荐，转化2名精准新粉，完播率达6.40%；抖音端爆发力更强，播放量达2641次，点赞33个，收藏量达15次，极佳的收藏比例验证了硬核元器件防险保护内容的长期实用价值，并带来4名行业内新增粉丝。');
+  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周发布2条重磅科普视频，围绕新能源和固态变压器技术展开。视频号端表现稳健，《SST为什么需要更强的电路保护》完播率高达10.75%，带来2名精准涨粉；《新能源电网vs传统电网》播放量达710次，转化3名关注。抖音端更具爆发力，新能源电网主题收获3300次播放、57个赞和28次收藏，展现了极强的行业用户粘性与高专业度科普心智。');
 
   const [amosVideos, setAmosVideos] = useState([
-    { id: 1, title: '力特方案-连续血糖检测仪', date: '2026/6/30', views: '861', hearts: '22', likes: '17', comments: '4', forwards: '13', follows: '3', completion: '3.48%', inquiry: '--' },
+    { id: 1, title: '力特方案-游戏主机电源保护eFuse', date: '2026/7/7', views: '643', hearts: '15', likes: '14', comments: '1', forwards: '5', follows: '--', completion: '1.87%', inquiry: '--' },
   ]);
   const [amosDouyin, setAmosDouyin] = useState([
-    { id: 1, title: '力特方案-连续血糖检测仪', date: '2026/6/30', views: '1.3W', completion: '2.05%', follows: '19', likes: '119', comments: '33', shares: '15', favs: '53', inquiry: '--', coverClick: '--' },
+    { id: 1, title: '力特方案-游戏主机电源保护eFuse', date: '2026/7/7', views: '1293', completion: '0.32%', follows: '--', likes: '5', comments: '0', shares: '0', favs: '3', inquiry: '--', coverClick: '--' },
   ]);
-  const [amosSummary, setAmosSummary] = useState('Amos本周聚焦医疗电子细分方案发布《力特方案-连续血糖检测仪》。视频号端稳定获861播放，点赞17，转发达13次，转化3个新粉；抖音端更是迎来重大流量收获，斩获1.3W+级别的曝光量，点赞数达119个，评论33次，收藏53次并带来15次分享，单一视频强势斩获19个行业高意向新增涨粉，充分佐证了CGM连续血糖检测仪这一医疗科技前沿高热度话题的科普溢出效应。');
+  const [amosSummary, setAmosSummary] = useState('Amos本周聚焦消费电子细分方案发布《力特方案-游戏主机电源保护eFuse》。视频号端稳定播放643次，转发5次，推荐15次；抖音端播放量达1293次，点赞5次，收藏3次。内容精准覆盖垂直极客和极硬核硬件工程师，巩固了品牌专业选型与技术服务形象。');
 
-  const [weeklySummary, setWeeklySummary] = useState('1. 核心流量趋势：本周新媒体总体涨粉32人（上周1573人，因上周爆款大爆发基数较高），回归常态化健康增长。官网流量周PV为597（上周562），实现6.2%的环比稳健上扬。公众号关注新增达147人，线下展会（139人关注）成为极强的线下蓄水池，形成了完善的展会私域转化引流闭环。\n2. 客户咨询：本周共承接官网等核心客询5人，由官方客服成功接待3人，咨询意向继续向高技术门槛、国产替代选型（如PPTC及医疗级电路保护）靠拢，凸显了我们内容输出的极高专业壁垒与询盘含金量。\n3. 矩阵表现分析：Elaine以慕尼黑上海电子展热点预热破冰，视频号创下15.84%的完播率奇迹，展现了品牌在垂直大展中的天然关注力；Jessica深耕汽车电子PPTC保护，抖音端收藏高达15次、斩获2.6k播放；Amos主攻硬核医疗电子CGM力特方案，抖音单端突破1.3W播放，带来19个新增精准粉丝。全团专业选题、精细运营的联动效应明显。\n4. 搜索与GEO布局：SEO百度关键词继续保持多词（如KSS、力特代理等）垄断排名第一和第二的位置；同时在GEO新AI搜索阵地表现出色，千问、豆包等AI引擎在“力特代理商”等核心关键字上均有持续的品牌推荐与收录，保持领先的智能化入口渗透率。');
+  const [weeklySummary, setWeeklySummary] = useState('1. 核心流量趋势：本周新媒体总体涨粉6人（上周32人，进入展后沉淀期）。官网流量迎来大爆发，周PV高达1078（上周597），环比暴增80.6%，多天PV突破150次，展后线上长尾效应与搜索引流极其显著。公众号关注新增5人，流量占比中朋友圈传播爆发式飙升至65.9%，搜一搜占12.2%，表明优质内容裂变和展会社交圈层扩散成果斐然。\n2. 客户咨询：本周共承接官网等核心业务客询3人（上周5人），咨询高意向客户均对游戏主机eFuse方案及新能源电路保护有具体的代换和采购接洽，高意向精准流量转化效果优秀。\n3. 矩阵表现分析：Elaine本周无新片，全面推进展后线索转化；Jessica双重硬核输出（新能源及SST保护）双端狂揽4.4k+播放、85个点赞和39次收藏，深度渗透新能源开发者圈层；Amos聚焦游戏主机eFuse保护，双端引流近2k播放，持续构筑消费电子技术高地。\n4. 搜索与GEO布局：SEO百度关键词继续保持极高垄断，多词排名第一和第二；GEO（AI搜索引擎推荐）方面成果显著，千问、豆包等AI引擎在“力特代理商”、“上海力特代理商”等核心关键字上均有坚挺的品牌推荐与收录占位，深度锚定AI时代智能流量入口。');
 
   const [seo, setSeo] = useState([
     { id: 1, keyword: 'KSS华东代理', rank: '排名第一' },
