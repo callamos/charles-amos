@@ -8,30 +8,29 @@ import { Plus, Trash2, TrendingUp, Users, Eye, MousePointerClick, Activity, Play
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const websiteTrafficData = [
-  { name: '07-06', pv: 135 },
-  { name: '07-07', pv: 106 },
-  { name: '07-08', pv: 138 },
-  { name: '07-09', pv: 205 },
-  { name: '07-10', pv: 174 },
-  { name: '07-11', pv: 121 },
-  { name: '07-12', pv: 199 },
+  { name: '07-13', pv: 227 },
+  { name: '07-14', pv: 180 },
+  { name: '07-15', pv: 189 },
+  { name: '07-16', pv: 194 },
+  { name: '07-17', pv: 92 },
+  { name: '07-18', pv: 45 },
+  { name: '07-19', pv: 60 },
 ];
 
 const wechatSourceData = [
-  { name: '搜一搜', value: 12.2 },
-  { name: '朋友圈', value: 65.9 },
-  { name: '服务号消息', value: 5.7 },
-  { name: '服务号主页', value: 5.1 },
-  { name: '聊天会话', value: 5.1 },
-  { name: '其它', value: 3.7 },
-  { name: '推荐', value: 7.8 },
+  { name: '搜一搜', value: 50.0 },
+  { name: '朋友圈', value: 33.3 },
+  { name: '服务号消息', value: 4.2 },
+  { name: '服务号主页', value: 8.3 },
+  { name: '聊天会话', value: 4.2 },
+  { name: '其它', value: 4.2 },
 ];
 
 export default function App() {
   // State for editable fields
   const [reportTitle, setReportTitle] = useState('工作周报');
   const [reporterName, setReporterName] = useState('Amos');
-  const [reportDate, setReportDate] = useState('2026-07-06到2026-07-12');
+  const [reportDate, setReportDate] = useState('2026-07-13到2026-07-19');
   
   const [section1Title, setSection1Title] = useState('一、核心数据与流量趋势');
   const [section2Title, setSection2Title] = useState('二、新媒体矩阵个人数据分析');
@@ -40,39 +39,33 @@ export default function App() {
   const [section6Title, setSection6Title] = useState('五、周报总结');
 
   // Core metrics states
-  const [followersCount, setFollowersCount] = useState('6');
-  const [followersSub, setFollowersSub] = useState('视频号与抖音涨粉 (上周 32)');
-  const [trafficCount, setTrafficCount] = useState('1078');
-  const [trafficSub, setTrafficSub] = useState('比上周 597 增长 80.6%');
-  const [inquiryCount, setInquiryCount] = useState('3');
-  const [inquirySub, setInquirySub] = useState('客户直接咨询 3 人 (上周 5)');
-  const [wechatFollowsCount, setWechatFollowsCount] = useState('5');
-  const [wechatFollowsSub, setWechatFollowsSub] = useState('上周 147');
+  const [followersCount, setFollowersCount] = useState('8');
+  const [followersSub, setFollowersSub] = useState('视频号与抖音涨粉 (上周 6)');
+  const [trafficCount, setTrafficCount] = useState('987');
+  const [trafficSub, setTrafficSub] = useState('比上周 1078 减少 8.4%');
+  const [inquiryCount, setInquiryCount] = useState('6');
+  const [inquirySub, setInquirySub] = useState('客户直接咨询 6 人 (上周 3)');
+  const [wechatFollowsCount, setWechatFollowsCount] = useState('1');
+  const [wechatFollowsSub, setWechatFollowsSub] = useState('上周 5');
 
   // Media Matrix State
   const [elaineVideos, setElaineVideos] = useState([]);
   const [elaineDouyin, setElaineDouyin] = useState([]);
-  const [elaineSummary, setElaineSummary] = useState('Elaine本周无新发布视频，本周主要聚焦于慕尼黑展会后的客户跟进与物料归档整理，保障线下业务转化链路的畅通。');
+  const [elaineSummary, setElaineSummary] = useState('Elaine本周无视频发布，主要聚焦在慕尼黑电子展后的高意向客户技术跟进与日常物料整理归纳。');
 
-  const [jessicaVideos, setJessicaVideos] = useState([
-    { id: 1, title: '新能源电网vs传统电网', date: '2026/7/7', views: '710', hearts: '30', likes: '22', comments: '7', forwards: '8', follows: '3', completion: '4.76%', inquiry: '--' },
-    { id: 2, title: 'SST为什么需要更强的电路保护', date: '2026/7/10', views: '770', hearts: '24', likes: '18', comments: '1', forwards: '4', follows: '2', completion: '10.75%', inquiry: '--' },
-  ]);
-  const [jessicaDouyin, setJessicaDouyin] = useState([
-    { id: 1, title: '新能源电网vs传统电网', date: '2026/7/7', views: '3300', completion: '2.70%', follows: '--', likes: '57', comments: '4', shares: '1', favs: '28', inquiry: '--', coverClick: '--' },
-    { id: 2, title: 'SST为什么需要更强的电路保护', date: '2026/7/10', views: '1100', completion: '2.55%', follows: '--', likes: '12', comments: '0', shares: '2', favs: '11', inquiry: '--', coverClick: '--' },
-  ]);
-  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周发布2条重磅科普视频，围绕新能源和固态变压器技术展开。视频号端表现稳健，《SST为什么需要更强的电路保护》完播率高达10.75%，带来2名精准涨粉；《新能源电网vs传统电网》播放量达710次，转化3名关注。抖音端更具爆发力，新能源电网主题收获3300次播放、57个赞和28次收藏，展现了极强的行业用户粘性与高专业度科普心智。');
+  const [jessicaVideos, setJessicaVideos] = useState([]);
+  const [jessicaDouyin, setJessicaDouyin] = useState([]);
+  const [jessicaSummary, setJessicaSummary] = useState('Jessica本周无视频发布，主要负责上周新能源及固态变压器技术视频在双端的评论答疑与长尾技术咨询，并进行下一阶段脚本的深度孵化设计。');
 
   const [amosVideos, setAmosVideos] = useState([
-    { id: 1, title: '力特方案-游戏主机电源保护eFuse', date: '2026/7/7', views: '643', hearts: '15', likes: '14', comments: '1', forwards: '5', follows: '--', completion: '1.87%', inquiry: '--' },
+    { id: 1, title: '电阻器是什么？', date: '2026/7/13', views: '664', hearts: '13', likes: '11', comments: '0', forwards: '2', follows: '2', completion: '3.16%', inquiry: '--' },
   ]);
   const [amosDouyin, setAmosDouyin] = useState([
-    { id: 1, title: '力特方案-游戏主机电源保护eFuse', date: '2026/7/7', views: '1293', completion: '0.32%', follows: '--', likes: '5', comments: '0', shares: '0', favs: '3', inquiry: '--', coverClick: '--' },
+    { id: 1, title: '电阻器是什么？', date: '2026/7/13', views: '4386', completion: '1.5%', follows: '6', likes: '62', comments: '0', shares: '1', favs: '33', inquiry: '--', coverClick: '--' },
   ]);
-  const [amosSummary, setAmosSummary] = useState('Amos本周聚焦消费电子细分方案发布《力特方案-游戏主机电源保护eFuse》。视频号端稳定播放643次，转发5次，推荐15次；抖音端播放量达1293次，点赞5次，收藏3次。内容精准覆盖垂直极客和极硬核硬件工程师，巩固了品牌专业选型与技术服务形象。');
+  const [amosSummary, setAmosSummary] = useState('Amos本周聚焦元器件基础科普发布《电阻器是什么？》。视频号端收获664次播放、11个点赞并大涨2个高技术意向新粉丝；抖音端大放异彩，狂揽4386次曝光、62个点赞及33次收藏，极高比例的收藏凸显了基础科普知识对中下游硬件研发、采购及工科学生极强的实用价值 and 长尾种草复利，单一渠道直接新增6个行业极硬核粉丝。');
 
-  const [weeklySummary, setWeeklySummary] = useState('1. 核心流量趋势：本周新媒体总体涨粉6人（上周32人，进入展后沉淀期）。官网流量迎来大爆发，周PV高达1078（上周597），环比暴增80.6%，多天PV突破150次，展后线上长尾效应与搜索引流极其显著。公众号关注新增5人，流量占比中朋友圈传播爆发式飙升至65.9%，搜一搜占12.2%，表明优质内容裂变和展会社交圈层扩散成果斐然。\n2. 客户咨询：本周共承接官网等核心业务客询3人（上周5人），咨询高意向客户均对游戏主机eFuse方案及新能源电路保护有具体的代换和采购接洽，高意向精准流量转化效果优秀。\n3. 矩阵表现分析：Elaine本周无新片，全面推进展后线索转化；Jessica双重硬核输出（新能源及SST保护）双端狂揽4.4k+播放、85个点赞和39次收藏，深度渗透新能源开发者圈层；Amos聚焦游戏主机eFuse保护，双端引流近2k播放，持续构筑消费电子技术高地。\n4. 搜索与GEO布局：SEO百度关键词继续保持极高垄断，多词排名第一和第二；GEO（AI搜索引擎推荐）方面成果显著，千问、豆包等AI引擎在“力特代理商”、“上海力特代理商”等核心关键字上均有坚挺的品牌推荐与收录占位，深度锚定AI时代智能流量入口。');
+  const [weeklySummary, setWeeklySummary] = useState('1. 核心流量趋势：本周新媒体矩阵总体新增涨粉8人（上周6人），全面由Amos《电阻器是什么？》爆款引流贡献（视频号2人，抖音6人）。官网浏览量高位平稳运行，周PV为987次（上周1078次，展后自然回调），整体仍处于近千级别超高段位，展示了强劲的长尾搜索渗透与品牌心智粘性。公众号关注新增1人，流量占比中“搜一搜”渠道爆发式攀升至50%，朋友圈占比33.3%，呈现典型的高意向主动搜索与精准社交裂变特征。\n2. 客户咨询：本周共承接官网等核心高意向业务客询6人（上周3人），环比暴增100%，咨询内容向游戏主机电源保护、新型电阻元器件代换及采购高度收拢，科普种草的内容询盘复利极其优异。\n3. 矩阵表现分析：Elaine与Jessica本周进行展后线索跟进及下一阶段深硬核题材脚本的深度磨砺；Amos以极具普适度的《电阻器是什么？》基础科普打穿硬核外围屏障，两端累积狂揽5k+播放、73点赞与33次收藏，以长尾刚需科普为产品和代理能力完成了极其成功的基础流量蓄水。\n4. 搜索与GEO布局：SEO百度关键词继续展示无可撼动的垄断统治力，多词保持行业前二名；同时GEO（AI搜索引擎推荐）方面卡位卓越，千问、豆包等AI推荐引擎在“力特代理商”、“上海力特代理商”等核心商业流量词上持续保持首屏推荐占位，深度筑牢智能硬件开发者搜索心智。');
 
   const [seo, setSeo] = useState([
     { id: 1, keyword: 'KSS华东代理', rank: '排名第一' },
